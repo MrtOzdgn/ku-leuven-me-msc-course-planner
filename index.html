@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KU Leuven MechEng — Course Planner</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="titleblock">
+  <div class="tb-cell">
+    <div class="k">Programme</div>
+    <div class="v">Master of Mechanical Eng.</div>
+  </div>
+  <div class="tb-cell">
+    <div class="k">Module</div>
+    <div class="v"><select id="moduleSelect"><option value="">— none selected —</option></select></div>
+  </div>
+  <div class="tb-cell">
+    <div class="k">Core</div>
+    <div class="v tnum" id="coreStat">0/28</div>
+  </div>
+  <div class="tb-cell">
+    <div class="k">Module</div>
+    <div class="v tnum" id="modStat">0/—</div>
+  </div>
+  <div class="tb-cell">
+    <div class="k">Total ECTS</div>
+    <div class="v big tnum" id="totalStat">0/120</div>
+  </div>
+  <div class="tb-cell tb-action">
+    <button id="commitBtn" hidden></button>
+  </div>
+</div>
+
+<main class="body">
+  <section class="timeline" id="timeline"></section>
+
+  <aside class="side">
+    <div class="req-panel" id="reqPanel"></div>
+    <div class="catalog">
+      <div class="catalog-head">Add to sheet</div>
+      <div class="catalog-controls">
+        <input id="searchBox" type="search" placeholder="Search courses…" autocomplete="off">
+        <select id="filterSelect"><option value="">All categories &amp; modules</option></select>
+      </div>
+      <div class="cat-list" id="catList"></div>
+    </div>
+  </aside>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<div class="slideover" id="slideover">
+  <button class="close" id="closeSlide" aria-label="Close">&times;</button>
+  <div id="slideContent"></div>
+</div>
+
+<footer class="statusbar" id="statusbar"></footer>
+
+<script src="app.js"></script>
+</body>
+</html>

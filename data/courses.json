@@ -1,0 +1,1133 @@
+{
+  "programme": "Master of Mechanical Engineering",
+  "programmeCode": "SC_52354240",
+  "campus": "Leuven",
+  "totalEcts": 120,
+  "academicYear": "2026",
+  "categories": {
+    "core": {
+      "label": "Core Courses",
+      "minEcts": 28,
+      "notes": "All courses all compulsory. Students who have already taken H0H51A 'Elasticiteits- en plasticiteitsleer', do not take H03Y1A 'Theory of Elasticity and Plasticity', but take an additional course(s) with the same number of credits within the elective courses.",
+      "courses": [
+        {
+          "id": "theory-of-elasticity-and-plasticity",
+          "name": "Theory of Elasticity and Plasticity",
+          "code": "H03Y1A",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": true
+        },
+        {
+          "id": "mechanical-drive-systems",
+          "name": "Mechanical Drive Systems",
+          "code": "H04S6A",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": true
+        },
+        {
+          "id": "numerical-modelling-in-mechanical-engineering",
+          "name": "Numerical Modelling in Mechanical Engineering",
+          "code": "H04U3A",
+          "ects": 5,
+          "semester": 1,
+          "compulsory": true
+        },
+        {
+          "id": "integrated-project",
+          "name": "Integrated Project",
+          "code": "H04P9A",
+          "ects": 6,
+          "semester": 2,
+          "compulsory": true
+        },
+        {
+          "id": "sensors-and-measurements-systems",
+          "name": "Sensors and Measurements Systems",
+          "code": "H04X7A",
+          "ects": 5,
+          "semester": 2,
+          "compulsory": true
+        }
+      ]
+    },
+    "coreChoice": {
+      "label": "Core Choice",
+      "minEcts": 5,
+      "notes": "One of both courses is compulsory. Students who have already taken one of the following courses (H08U4A 'Systeemtheorie', H01M8A 'Systeemtheorie en regeltechniek', X0B91A 'Systeemtheorie en regeltechniek', X9X15A 'Systeemtheorie', H09B8A 'Systeembenadering van unicellulaire organismen') choose H04X3A 'Control Theory', other students choose H04X3B 'Systems and Control Theory'.",
+      "courses": [
+        {
+          "id": "control-theory",
+          "name": "Control Theory",
+          "code": "H04X3A",
+          "ects": 5,
+          "semester": 1,
+          "compulsory": false
+        },
+        {
+          "id": "systems-and-control-theory",
+          "name": "Systems and Control Theory",
+          "code": "H04X3B",
+          "ects": 7,
+          "semester": 1,
+          "compulsory": false
+        }
+      ]
+    },
+    "generalInterest": {
+      "label": "General Interest / Broadening",
+      "minEcts": 12,
+      "maxEcts": 14,
+      "notes": "Students choose at least 12 and at most 14 credits from the following list of general interest courses (1 course from part A and at least 1 course from part B) Exception: students who have chosen the Module Manufacturing & Management, do NOT take 12-14 credits from this list, but take 1 course from part A and 1 course from part B. One of the three courses 'Religions' H0N82A or 'Religie, zingeving en levensbeschouwing' A04D5A / A08C4A is compulsory. Students who already successfully completed a course with the same content before starting this programme, have to take another 3 ECTS general interest course instead. H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A. Students choose either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service-learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+      "courses": [
+        {
+          "id": "perspectives-on-religion-and-meaning",
+          "name": "Perspectives on Religion and Meaning",
+          "code": "A08C4A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "part": "Part A",
+          "notes": "One of the three courses 'Religions' H0N82A or 'Religie, zingeving en levensbeschouwing' A04D5A / A08C4A is compulsory. Students who already successfully completed a course with the same content before starting this programme, have to take another 3 ECTS from part C of the general interest courses instead. Students are encouraged to take the courses of the 2nd semester (A08C4A or H0N82A), this way they avoid overlap with core courses."
+        },
+        {
+          "id": "religions-a04d5a",
+          "name": "Religions",
+          "code": "A04D5A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "part": "Part A",
+          "notes": "One of the three courses 'Religions' H0N82A or 'Religie, zingeving en levensbeschouwing' A04D5A / A08C4A is compulsory. Students who already successfully completed a course with the same content before starting this programme, have to take another 3 ECTS from part C of the general interest courses instead. Students are encouraged to take the courses of the 2nd semester (A08C4A or H0N82A), this way they avoid overlap with core courses."
+        },
+        {
+          "id": "religions-h0n82a",
+          "name": "Religions",
+          "code": "H0N82A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "part": "Part A",
+          "notes": "One of the three courses 'Religions' H0N82A or 'Religie, zingeving en levensbeschouwing' A04D5A / A08C4A is compulsory. Students who already successfully completed a course with the same content before starting this programme, have to take another 3 ECTS from part C of the general interest courses instead. Students are encouraged to take the courses of the 2nd semester (A08C4A or H0N82A), this way they avoid overlap with core courses."
+        },
+        {
+          "id": "introduction-to-safety-engineering",
+          "name": "Introduction to Safety Engineering",
+          "code": "H08N0A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "part": "Part B",
+          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A."
+        },
+        {
+          "id": "intellectual-property-management",
+          "name": "Intellectual Property Management",
+          "code": "G0B01A",
+          "ects": 4,
+          "semester": 2,
+          "compulsory": false,
+          "part": "Part B",
+          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A."
+        },
+        {
+          "id": "ecodesign-and-life-cycle-engineering",
+          "name": "Ecodesign and Life Cycle Engineering",
+          "code": "H00O3A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "part": "Part B",
+          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A."
+        },
+        {
+          "id": "technology-entrepreneurship-and-new-business-development",
+          "name": "Technology Entrepreneurship and New Business Development",
+          "code": "D0S18A",
+          "ects": 6,
+          "semester": "either",
+          "compulsory": false,
+          "part": "Part B",
+          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A."
+        },
+        {
+          "id": "project-management",
+          "name": "Project Management",
+          "code": "H04X2A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "part": "Part B",
+          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A."
+        },
+        {
+          "id": "maintenance-management",
+          "name": "Maintenance Management",
+          "code": "H00M4A",
+          "ects": 3,
+          "semester": null,
+          "compulsory": false,
+          "part": "Part C",
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+        },
+        {
+          "id": "bedrijfsstage-werktuigkunde-industrial-internship-mechanical-engineering",
+          "name": "Bedrijfsstage: Werktuigkunde / Industrial Internship: Mechanical Engineering",
+          "code": "H04O7A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "part": "Part C",
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+        },
+        {
+          "id": "energy-economics",
+          "name": "Energy Economics",
+          "code": "H04C4A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "part": "Part C",
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+        },
+        {
+          "id": "dutch-language-and-cultures",
+          "name": "Dutch Language and Cultures",
+          "code": "H06U6A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "part": "Part C",
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+        },
+        {
+          "id": "engineering-and-entrepreneurship",
+          "name": "Engineering & Entrepreneurship",
+          "code": "H09P4A",
+          "ects": 6,
+          "semester": 2,
+          "compulsory": false,
+          "part": "Part C",
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+        },
+        {
+          "id": "entrepreneurship-in-practice-service-learning",
+          "name": "Entrepreneurship in Practice / Service-Learning",
+          "code": "H0T91A",
+          "ects": 6,
+          "semester": "either",
+          "compulsory": false,
+          "part": "Part C",
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+        },
+        {
+          "id": "ai-for-engineering-science",
+          "name": "AI for Engineering Science",
+          "code": "H0U79A",
+          "ects": 3,
+          "semester": "either",
+          "compulsory": false,
+          "part": "Part C",
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+        },
+        {
+          "id": "studium-generale-lectures-for-the-21st-century",
+          "name": "Studium Generale: Lectures for the 21st Century",
+          "code": "W0AE0A",
+          "ects": 4,
+          "semester": "either",
+          "compulsory": false,
+          "part": "Part C",
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+        },
+        {
+          "id": "organizational-psychology-part-2-leadership",
+          "name": "Organizational Psychology, part 2: Leadership",
+          "code": "P0P84B",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": false,
+          "part": "Part C",
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+        },
+        {
+          "id": "leadership-and-strategic-management",
+          "name": "Leadership and Strategic Management",
+          "code": "H09Q1A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "part": "Part C",
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+        },
+        {
+          "id": "tutoring-mechanical-engineering",
+          "name": "Tutoring: Mechanical Engineering",
+          "code": "H0E73A",
+          "ects": 3,
+          "semester": "either",
+          "compulsory": false,
+          "part": "Part C",
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+        }
+      ]
+    },
+    "generalBroadening": {
+      "label": "General Broadening Courses (Athens / Summer Courses)",
+      "maxEcts": 6,
+      "notes": "The student can choose (up to max 6 credits) master courses from the entire educational programme of the KU Leuven. The student chooses at most one of the following courses: H0V01A or H0V02A (Capita selecta ingenieurswetenschappen: Athens). Participation in an Athens short mobility program is subject to a selection procedure . Students who are not selected must choose a different elective course.",
+      "courses": [
+        {
+          "id": "selected-topics-in-engineering-athens-i",
+          "name": "Selected Topics in Engineering: Athens I",
+          "code": "H0V01A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false
+        },
+        {
+          "id": "selected-topics-in-engineering-summer-course-i",
+          "name": "Selected Topics in Engineering: Summer Course I",
+          "code": "H0V03A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false
+        },
+        {
+          "id": "selected-topics-in-engineering-athens-ii",
+          "name": "Selected Topics in Engineering: Athens II",
+          "code": "H0V02A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false
+        },
+        {
+          "id": "selected-topics-in-engineering-summer-course-ii",
+          "name": "Selected Topics in Engineering: Summer Course II",
+          "code": "H0V04A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false
+        }
+      ]
+    },
+    "thesis": {
+      "label": "Master's Thesis",
+      "minEcts": 24,
+      "notes": "This course is compulsory",
+      "courses": [
+        {
+          "id": "thesis",
+          "name": "Master's Thesis",
+          "code": "H09Z9A",
+          "ects": 24,
+          "semester": "either",
+          "compulsory": true
+        }
+      ]
+    },
+    "electives": {
+      "label": "Free/Module Electives",
+      "targetEcts": 20,
+      "notes": "Students select the amount of courses required to complete their master program to at least 120 ECTS and maximum 122 ECTS, with additional courses from any option.",
+      "courses": [
+        {
+          "id": "industri-le-stage-werktuigkunde-industrial-internship-mechanical-engineering",
+          "name": "Industri\u00eble stage: Werktuigkunde / Industrial Internship: Mechanical Engineering",
+          "code": "H04Q9A",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": false,
+          "pool": "Industrial Experience"
+        },
+        {
+          "id": "environmental-economics",
+          "name": "Environmental Economics",
+          "code": "D0M36A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+        },
+        {
+          "id": "materials-selection",
+          "name": "Materials Selection",
+          "code": "H00C0A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+        },
+        {
+          "id": "biomaterials",
+          "name": "Biomaterials",
+          "code": "H03U4A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+        },
+        {
+          "id": "dredging-technology-for-mechanical-engineers",
+          "name": "Dredging Technology for Mechanical Engineers",
+          "code": "H0A13A",
+          "ects": 4,
+          "semester": 1,
+          "compulsory": false,
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+        },
+        {
+          "id": "safety-of-chemical-and-biological-products-and-of-chemical-processes",
+          "name": "Safety of Chemical and Biological Products and of Chemical Processes",
+          "code": "H08K0A",
+          "ects": 4,
+          "semester": 2,
+          "compulsory": false,
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+        },
+        {
+          "id": "safety-aspects-of-industrial-installations",
+          "name": "Safety Aspects of Industrial Installations",
+          "code": "H08P2A",
+          "ects": 4,
+          "semester": 2,
+          "compulsory": false,
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+        },
+        {
+          "id": "data-mining-and-neural-networks",
+          "name": "Data Mining and Neural Networks",
+          "code": "H03V7B",
+          "ects": 4,
+          "semester": 1,
+          "compulsory": false,
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+        }
+      ]
+    }
+  },
+  "modules": [
+    {
+      "id": "manufacturing-management",
+      "name": "Manufacturing & Management",
+      "minEcts": 30,
+      "courses": [
+        {
+          "id": "virtual-product-development",
+          "name": "Virtual Product Development",
+          "code": "H0A15A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "design-methodologies",
+          "name": "Design Methodologies",
+          "code": "H0R71A",
+          "ects": 6,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "production-systems-machine-tools-flexible-computer-integrated-production",
+          "name": "Production Systems: Machine Tools, Flexible Computer Integrated Production",
+          "code": "H01Z4A",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "introduction-to-operational-management-and-logistics",
+          "name": "Introduction to Operational Management and Logistics",
+          "code": "H04V6A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "dimensional-metrology",
+          "name": "Dimensional Metrology",
+          "code": "H0O79A",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "engineering-economy",
+          "name": "Engineering Economy",
+          "code": "H00K1A",
+          "ects": 3,
+          "semester": null,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "design-and-analysis-of-experimentation",
+          "name": "Design and Analysis of Experimentation",
+          "code": "H02V8A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "deterministic-decision-models",
+          "name": "Deterministic Decision Models",
+          "code": "H04V5A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "advanced-subtractive-manufacturing",
+          "name": "Advanced Subtractive Manufacturing",
+          "code": "H0E62A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "total-quality-management",
+          "name": "Total Quality Management",
+          "code": "H00N6A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "additive-manufacturing-processes-3d-printing",
+          "name": "Additive Manufacturing Processes - 3D Printing",
+          "code": "H0E64A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "forming-technology",
+          "name": "Forming Technology",
+          "code": "H0R73A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "simulation-theory-and-applications",
+          "name": "Simulation Theory and Applications",
+          "code": "D0R19A",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "optimization-special-topics",
+          "name": "Optimization: Special Topics",
+          "code": "D0M90B",
+          "ects": 6,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "polymer-processing",
+          "name": "Polymer Processing",
+          "code": "H09F7A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "organizational-psychology-part-2-leadership--manufacturing-management",
+          "name": "Organizational Psychology, part 2: Leadership",
+          "code": "P0P84B",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "notes": "Also available as a General Interest / Broadening elective (same course, same code) \u2014 don't count it twice if picking from both pools.",
+          "prerequisites": []
+        },
+        {
+          "id": "introduction-to-operational-management-and-logistics--optional",
+          "name": "Introduction to Operational Management and Logistics",
+          "code": "H04V6A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "notes": "This course is already compulsory for Manufacturing & Management (see the compulsory entry above) \u2014 KU Leuven's own course catalogue also lists it a second time in the elective/optional-part table, possibly for substitution/retake bookkeeping. Don't double-count its ECTS if it's already satisfying your compulsory requirement.",
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "id": "mechatronics-robotics",
+      "name": "Mechatronics & Robotics",
+      "minEcts": 30,
+      "courses": [
+        {
+          "id": "design-of-optics",
+          "name": "Design of Optics",
+          "code": "H0O83A",
+          "ects": 3,
+          "semester": null,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "embedded-control-systems--mechatronics-robotics",
+          "name": "Embedded Control Systems",
+          "code": "H04P5A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "precision-engineering",
+          "name": "Precision Engineering",
+          "code": "H0O82A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "drive-systems",
+          "name": "Drive Systems",
+          "code": "H0T48A",
+          "ects": 6,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "optimization-of-mechatronic-systems",
+          "name": "Optimization of Mechatronic Systems",
+          "code": "H04U1C",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "advanced-robot-control-systems",
+          "name": "Advanced Robot Control Systems",
+          "code": "H06U9B",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "advanced-model-based-control",
+          "name": "Advanced Model Based Control",
+          "code": "H04Q7A",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "production-machines-and-systems",
+          "name": "Production Machines and Systems",
+          "code": "H04W0A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "robotics",
+          "name": "Robotics",
+          "code": "H02A4A",
+          "ects": 4,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "image-analysis-and-understanding",
+          "name": "Image Analysis and Understanding",
+          "code": "H09J2A",
+          "ects": 6,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "tribology",
+          "name": "Tribology",
+          "code": "H0T50A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "micro-electromechanical-systems",
+          "name": "Micro-electromechanical Systems",
+          "code": "H9X38A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "uncertainty-in-artificial-intelligence",
+          "name": "Uncertainty in Artificial Intelligence",
+          "code": "H02D2A",
+          "ects": 4,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "id": "thermotechnical-sciences",
+      "name": "Thermotechnical Sciences",
+      "minEcts": 30,
+      "courses": [
+        {
+          "id": "aerodynamics-h04o1a--thermotechnical-sciences",
+          "name": "Aerodynamics",
+          "code": "H04O1A",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "thermal-systems",
+          "name": "Thermal Systems",
+          "code": "H0H00A",
+          "ects": 5,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "new-energy-technologies-seminars",
+          "name": "New Energy Technologies: Seminars",
+          "code": "H0O81A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "energy-challenges",
+          "name": "Energy Challenges",
+          "code": "H9X53A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "nuclear-energy-basic-aspects",
+          "name": "Nuclear Energy: Basic Aspects",
+          "code": "H04B5B",
+          "ects": 4,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "nuclear-energy-deepening-insights",
+          "name": "Nuclear Energy: Deepening Insights",
+          "code": "H04B5C",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "numerical-techniques-in-fluid-dynamics",
+          "name": "Numerical Techniques in Fluid Dynamics",
+          "code": "H04U8A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "turbulence",
+          "name": "Turbulence",
+          "code": "H04Y7A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "two-phase-flow-theory-and-applications",
+          "name": "Two-Phase Flow: Theory and Applications",
+          "code": "H0A21A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "advanced-measurement-techniques-in-fluid-mechanics",
+          "name": "Advanced Measurement Techniques in Fluid Mechanics",
+          "code": "H0E66A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "advanced-thermodynamics-and-plasma-physics",
+          "name": "Advanced Thermodynamics and Plasma Physics",
+          "code": "H04Q1B",
+          "ects": 6,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "turbomachinery-part-2",
+          "name": "Turbomachinery, Part 2",
+          "code": "H04Y6A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "combustion",
+          "name": "Combustion",
+          "code": "H04Z5A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "vehicle-propulsion--thermotechnical-sciences",
+          "name": "Vehicle Propulsion",
+          "code": "H0E70A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "id": "aero-space-engineering",
+      "name": "Aero & Space Engineering",
+      "minEcts": 30,
+      "courses": [
+        {
+          "id": "aerodynamics-h04o1b",
+          "name": "Aerodynamics",
+          "code": "H04O1B",
+          "ects": 5,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "aircraft-performance-and-stability",
+          "name": "Aircraft Performance and Stability",
+          "code": "H04W6A",
+          "ects": 5,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "spacecraft-technology-and-space-environment",
+          "name": "Spacecraft Technology and Space Environment",
+          "code": "H04X5A",
+          "ects": 5,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "aircraft-engines",
+          "name": "Aircraft Engines",
+          "code": "H04Z8A",
+          "ects": 5,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "production-and-quality-assurance-processes-in-the-aerospace-industry",
+          "name": "Production and Quality Assurance Processes in the Aerospace Industry",
+          "code": "H0E68B",
+          "ects": 5,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "aircraft-materials",
+          "name": "Aircraft Materials",
+          "code": "H0R74A",
+          "ects": 4,
+          "semester": 2,
+          "compulsory": false,
+          "choiceGroup": "Compulsory Courses Aero & Space Engineering: Part II",
+          "notes": "Students choose one of both courses. Students who have already taken H02U6A 'Polymeercomposieten', take H0R77A 'Aircraft Materials and Processing Technology for Composites', other students take H0R74A 'Aircraft Materials'.",
+          "prerequisites": []
+        },
+        {
+          "id": "aircraft-materials-and-processing-technology-for-composites",
+          "name": "Aircraft Materials and Processing Technology for Composites",
+          "code": "H0R77A",
+          "ects": 4,
+          "semester": 2,
+          "compulsory": false,
+          "choiceGroup": "Compulsory Courses Aero & Space Engineering: Part II",
+          "notes": "Students choose one of both courses. Students who have already taken H02U6A 'Polymeercomposieten', take H0R77A 'Aircraft Materials and Processing Technology for Composites', other students take H0R74A 'Aircraft Materials'.",
+          "prerequisites": []
+        },
+        {
+          "id": "reliability-of-mechanical-systems--aero-space-engineering",
+          "name": "Reliability of Mechanical Systems",
+          "code": "H04Y2A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "satellite-navigation-and-communications",
+          "name": "Satellite Navigation and Communications",
+          "code": "H05T6A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "aircraft-structures",
+          "name": "Aircraft Structures",
+          "code": "H05V3A",
+          "ects": 5,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "helicopters",
+          "name": "Helicopters",
+          "code": "H0R78A",
+          "ects": 4,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "noise-abatement-in-machines-vehicles-and-aircraft--aero-space-engineering",
+          "name": "Noise Abatement in Machines, Vehicles and Aircraft",
+          "code": "H0T56A",
+          "ects": 6,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "structural-optimization--aero-space-engineering",
+          "name": "Structural Optimization",
+          "code": "H0T88A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "aircraft-mro-maintenance-repair-overhaul",
+          "name": "Aircraft MRO, Maintenance, Repair & Overhaul",
+          "code": "H0T52A",
+          "ects": 3,
+          "semester": null,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "notes": "Not organised in the current academic year according to KU Leuven's catalogue, but still listed in the Aero & Space Engineering elective table.",
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "id": "automotive-engineering",
+      "name": "Automotive Engineering",
+      "minEcts": 30,
+      "courses": [
+        {
+          "id": "automotive-structures-and-vehicle-dynamics",
+          "name": "Automotive Structures and Vehicle Dynamics",
+          "code": "H0T54A",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "embedded-control-systems--automotive-engineering",
+          "name": "Embedded Control Systems",
+          "code": "H04P5A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "vehicle-propulsion--automotive-engineering",
+          "name": "Vehicle Propulsion",
+          "code": "H0E70A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "noise-abatement-in-machines-vehicles-and-aircraft--automotive-engineering",
+          "name": "Noise Abatement in Machines, Vehicles and Aircraft",
+          "code": "H0T56A",
+          "ects": 6,
+          "semester": 2,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "vehicle-systems",
+          "name": "Vehicle Systems",
+          "code": "H0O78A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": true,
+          "prerequisites": []
+        },
+        {
+          "id": "aerodynamics-h04o1a--automotive-engineering",
+          "name": "Aerodynamics",
+          "code": "H04O1A",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "advanced-techniques-for-vibro-acoustic-measurement-and-analysis",
+          "name": "Advanced Techniques for Vibro-acoustic Measurement and Analysis",
+          "code": "H04Q4A",
+          "ects": 3,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "structural-dynamics-analysis-and-numerical-modelling",
+          "name": "Structural Dynamics, Analysis and Numerical Modelling",
+          "code": "H04X0A",
+          "ects": 6,
+          "semester": 1,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "reliability-of-mechanical-systems--automotive-engineering",
+          "name": "Reliability of Mechanical Systems",
+          "code": "H04Y2A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "mechatronic-drive-systems",
+          "name": "Mechatronic Drive Systems",
+          "code": "H0T49A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "structural-optimization--automotive-engineering",
+          "name": "Structural Optimization",
+          "code": "H0T88A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        },
+        {
+          "id": "electrical-drives",
+          "name": "Electrical Drives",
+          "code": "H9X30A",
+          "ects": 3,
+          "semester": 2,
+          "compulsory": false,
+          "electivePart": "Optional Part",
+          "prerequisites": []
+        }
+      ]
+    }
+  ],
+  "sources": [
+    "https://onderwijsaanbod.kuleuven.be/opleidingen/e/SC_52354240",
+    "https://onderwijsaanbod.kuleuven.be/opleidingen/e/SC_52354240.htm",
+    "https://eng.kuleuven.be/en/study/masters/mech/mastermechanicalengineering/structuremastermechanicalengineering",
+    "https://www.kuleuven.be/programmes/master-mechanical-engineering"
+  ]
+}
