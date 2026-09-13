@@ -79,6 +79,7 @@ function normalizePlan() {
     if (!course) { delete plan[id]; changed = true; continue; }
     const fixed = FIXED_STAGE[course.sourceKey];
     if (fixed && plan[id].stage !== fixed) { plan[id].stage = fixed; changed = true; }
+    if (plan[id].overviewSem !== 1 && plan[id].overviewSem !== 2) { plan[id].overviewSem = defaultOverviewSem(course); changed = true; }
   }
   if (changed) saveState();
 }
@@ -184,6 +185,7 @@ function wireEvents() {
 function renderSections() {
   document.querySelectorAll(".section-tab").forEach((btn) => btn.classList.toggle("active", btn.dataset.section === activeSection));
   document.getElementById("sectionSelect").hidden = activeSection !== "select";
+  document.getElementById("sectionOverview").hidden = activeSection !== "overview";
   document.getElementById("sectionPlanner").hidden = activeSection !== "planner";
 }
 
@@ -193,10 +195,24 @@ function defaultStageFor(course) {
   return FIXED_STAGE[course.sourceKey] || 1;
 }
 
+// The 2-year overview buckets courses into 4 half-year lanes (Y1S1/Y1S2/Y2S1/Y2S2).
+// "stage" (1|2) says which YEAR — same field the Select-courses toggle and the
+// Weekly planner both read, so it stays in sync everywhere. "overviewSem" is the
+// extra bit needed only here: which half of that year. A course fixed to a real
+// semester (1 or 2) can only ever sit in the matching overviewSem; an "either"/
+// unspecified one can go in either half, and starts in the first.
+function defaultOverviewSem(course) {
+  return course.semester === 2 ? 2 : 1;
+}
+
+function newPlanEntry(course, stage) {
+  return { stage, overviewSem: defaultOverviewSem(course), groupChoices: {} };
+}
+
 function placeCourse(id) {
   if (plan[id]) return;
   const course = courseIndex.get(id);
-  plan[id] = { stage: defaultStageFor(course), groupChoices: {} };
+  plan[id] = newPlanEntry(course, defaultStageFor(course));
   saveState();
   renderAll();
 }
@@ -220,10 +236,37 @@ function handleStageBtn(id, stage) {
     setStage(id, stage);
   } else {
     const course = courseIndex.get(id);
-    plan[id] = { stage, groupChoices: {} };
+    plan[id] = newPlanEntry(course, stage);
     saveState();
     renderAll();
   }
+}
+
+// All 4 overview buckets a course could validly occupy, as [stage, overviewSem] pairs.
+function overviewBucketsFor(course) {
+  const stages = FIXED_STAGE[course.sourceKey] ? [FIXED_STAGE[course.sourceKey]] : [1, 2];
+  const sems = course.semester === 1 ? [1] : course.semester === 2 ? [2] : [1, 2];
+  const buckets = [];
+  for (const st of stages) for (const sm of sems) buckets.push([st, sm]);
+  return buckets;
+}
+
+function moveOverview(id, dir) {
+  const entry = plan[id];
+  const course = courseIndex.get(id);
+  if (!entry || !course) return;
+  const buckets = overviewBucketsFor(course);
+  const key = (b) => b[0] * 10 + b[1];
+  const order = [11, 12, 21, 22]; // Y1S1, Y1S2, Y2S1, Y2S2 in natural order
+  const validOrdered = order.filter((k) => buckets.some((b) => key(b) === k));
+  const curIdx = validOrdered.indexOf(entry.stage * 10 + entry.overviewSem);
+  const nextIdx = curIdx + (dir === "next" ? 1 : -1);
+  if (nextIdx < 0 || nextIdx >= validOrdered.length) return;
+  const nextKey = validOrdered[nextIdx];
+  entry.stage = Math.floor(nextKey / 10);
+  entry.overviewSem = nextKey % 10;
+  saveState();
+  renderAll();
 }
 
 function setGroupChoice(courseId, olaCode, groupKey) {
@@ -389,11 +432,77 @@ function renderAll() {
   renderTitleblock();
   renderReqStrip();
   renderCourseGroups();
+  renderOverview();
   renderCalendarArea();
   renderSideTabs();
   renderPlannerConflictBadge();
   renderStatusbar();
   saveState(); // persists any group choices that were just auto-defaulted during resolution
+}
+
+const OVERVIEW_BUCKETS = [
+  { stage: 1, sem: 1, label: "Year 1 · Sem 1" },
+  { stage: 1, sem: 2, label: "Year 1 · Sem 2" },
+  { stage: 2, sem: 1, label: "Year 2 · Sem 1" },
+  { stage: 2, sem: 2, label: "Year 2 · Sem 2" },
+];
+
+function renderOverview() {
+  const wrap = document.getElementById("overviewGrid");
+  const placed = Object.keys(plan)
+    .map((id) => ({ id, course: courseIndex.get(id), entry: plan[id] }))
+    .filter((x) => x.course);
+
+  wrap.innerHTML = OVERVIEW_BUCKETS
+    .map((b) => {
+      const items = placed.filter((x) => x.entry.stage === b.stage && x.entry.overviewSem === b.sem);
+      const ects = items.reduce((s, x) => s + (x.course.ects || 0), 0);
+      const pct = Math.min(100, (ects / 30) * 100);
+      return `<div class="ov-col">
+        <div class="ov-head">
+          <span class="lbl">${b.label}</span>
+          <div class="gauge"><div class="gauge-fill ${ects > 32 ? "over" : ""}" style="width:${pct}%"></div></div>
+          <div class="num tnum">${items.length} course${items.length === 1 ? "" : "s"} · ${ects} ECTS</div>
+        </div>
+        <div class="ov-chips">${
+          items.length
+            ? items.map((x) => overviewChipHtml(x)).join("")
+            : `<div class="empty-hint">Nothing placed here</div>`
+        }</div>
+      </div>`;
+    })
+    .join("");
+
+  wrap.querySelectorAll("[data-ov-move]").forEach((btn) => {
+    btn.addEventListener("click", () => moveOverview(btn.dataset.ovMove, btn.dataset.dir));
+  });
+  wrap.querySelectorAll("[data-ov-remove]").forEach((btn) => {
+    btn.addEventListener("click", () => removeCourse(btn.dataset.ovRemove));
+  });
+  wrap.querySelectorAll("[data-ov-open]").forEach((el) => {
+    el.addEventListener("click", () => openSlide(el.dataset.ovOpen));
+  });
+}
+
+function overviewChipHtml(x) {
+  const { id, course, entry } = x;
+  const buckets = overviewBucketsFor(course);
+  const order = [11, 12, 21, 22];
+  const validOrdered = order.filter((k) => buckets.some((b) => b[0] * 10 + b[1] === k));
+  const curIdx = validOrdered.indexOf(entry.stage * 10 + entry.overviewSem);
+  const canPrev = curIdx > 0;
+  const canNext = curIdx < validOrdered.length - 1;
+  const hasSched = !!schedule[id];
+  return `<div class="ov-chip">
+    <span class="code">${escapeHtml(course.code || "")}</span>
+    <span class="ec tnum">${course.ects != null ? course.ects : "?"}</span>
+    <span class="nm" data-ov-open="${id}">${escapeHtml(course.name)}${hasSched ? "" : ` <span class="nosched">no calendar data</span>`}</span>
+    <div class="mv">
+      <button data-ov-move="${id}" data-dir="prev" ${canPrev ? "" : "disabled"}>&larr;</button>
+      <button data-ov-move="${id}" data-dir="next" ${canNext ? "" : "disabled"}>&rarr;</button>
+      <button class="rm" data-ov-remove="${id}" style="margin-left:auto">remove</button>
+    </div>
+  </div>`;
 }
 
 function renderTitleblock() {

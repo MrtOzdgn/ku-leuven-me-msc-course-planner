@@ -34,6 +34,8 @@
 <div class="sectionnav">
   <button class="section-tab active" data-section="select">Select your courses</button>
   <span class="sn-arrow">&rsaquo;</span>
+  <button class="section-tab" data-section="overview">2-year overview</button>
+  <span class="sn-arrow">&rsaquo;</span>
   <button class="section-tab" data-section="planner">Weekly planner <span id="plannerConflictBadge"></span></button>
 </div>
 
@@ -46,6 +48,10 @@
     </div>
     <div class="req-strip" id="reqStrip"></div>
     <div class="course-groups" id="courseGroups"></div>
+  </section>
+
+  <section class="section-overview" id="sectionOverview" hidden>
+    <div class="overview-grid" id="overviewGrid"></div>
   </section>
 
   <section class="section-planner" id="sectionPlanner" hidden>

@@ -113,8 +113,8 @@ body {
 
 /* ---------- layout ---------- */
 .body { flex: 1; overflow: hidden; min-height: 0; display: flex; flex-direction: column; }
-.section-select, .section-planner { flex: 1; overflow: hidden; min-height: 0; display: flex; flex-direction: column; }
-.section-select[hidden], .section-planner[hidden] { display: none; }
+.section-select, .section-overview, .section-planner { flex: 1; overflow: hidden; min-height: 0; display: flex; flex-direction: column; }
+.section-select[hidden], .section-overview[hidden], .section-planner[hidden] { display: none; }
 
 /* ---------- select-your-courses section ---------- */
 .select-controls { flex-shrink: 0; display: flex; gap: 8px; padding: 10px 14px; background: var(--paper); border-bottom: 1px solid var(--line); }
@@ -169,6 +169,33 @@ body {
 .stage-toggle { display: flex; gap: 3px; }
 .stage-btn { font-size: 9.5px; padding: 2px 6px; border: 1px solid var(--line); background: var(--bg); color: var(--mute); cursor: pointer; border-radius: 3px; }
 .stage-btn.active { border-color: var(--orange); background: var(--orange-soft); color: var(--orange-text); font-weight: 700; }
+
+/* ---------- 2-year overview section ---------- */
+.overview-grid {
+  flex: 1; overflow-y: auto; padding: 14px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-content: start;
+}
+.ov-col { border: 1px solid var(--line); background: var(--paper); min-width: 0; }
+.ov-head { padding: 9px 10px; border-bottom: 1px solid var(--line); }
+.ov-head .lbl { font-size: 11px; font-weight: 700; letter-spacing: .03em; color: var(--blue); }
+.ov-head .gauge { height: 5px; background: var(--blue-soft); margin-top: 6px; overflow: hidden; }
+.ov-head .gauge-fill { height: 100%; background: var(--blue); }
+.ov-head .gauge-fill.over { background: var(--conflict); }
+.ov-head .num { font-size: 10px; color: var(--mute); margin-top: 4px; }
+.ov-chips { padding: 8px; display: flex; flex-direction: column; gap: 6px; min-height: 60px; }
+.ov-chip { border: 1px solid var(--line); background: var(--bg); padding: 6px 8px 7px; font-size: 11px; position: relative; }
+.ov-chip .code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 9.5px; color: var(--mute); display: block; margin-bottom: 2px; }
+.ov-chip .nm { font-weight: 500; line-height: 1.3; display: block; padding-right: 28px; cursor: pointer; }
+.ov-chip .nm:hover { color: var(--blue); }
+.ov-chip .nm .nosched { color: var(--over); font-weight: 400; font-size: 9.5px; }
+.ov-chip .ec { position: absolute; top: 6px; right: 8px; font-size: 10px; color: var(--mute); }
+.ov-chip .mv { display: flex; gap: 4px; margin-top: 5px; }
+.ov-chip .mv button {
+  border: 1px solid var(--line); background: none; font-size: 9px; padding: 1px 5px; cursor: pointer; color: var(--mute);
+}
+.ov-chip .mv button:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
+.ov-chip .mv button:disabled { opacity: .35; cursor: default; }
+.ov-chip .mv button.rm:hover { border-color: var(--over); color: var(--over); }
 
 /* ---------- planner section ---------- */
 .planner-body { flex: 1; display: grid; grid-template-columns: 1fr 300px; overflow: hidden; min-height: 0; }
