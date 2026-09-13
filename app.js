@@ -1,4 +1,4 @@
-const STORAGE_KEY = "coursePlannerV3";
+const STORAGE_KEY = "coursePlannerV4";
 const DAY_START = 7;
 const DAY_END = 20;
 const HOUR_PX = 52;
@@ -12,7 +12,7 @@ let schedule = {};
 let calendarWeeks = [];
 let flatCourses = [];
 let courseIndex = new Map();
-let plan = {};              // id -> { stage: 1|2 }
+let plan = {};              // id -> { stage: 1|2, groupChoices: { olaCode: groupKey } }
 let compareModuleId = "";
 let searchText = "";
 let filterKey = "";
@@ -166,7 +166,7 @@ function defaultStageFor(course) {
 function placeCourse(id) {
   if (plan[id]) return;
   const course = courseIndex.get(id);
-  plan[id] = { stage: defaultStageFor(course) };
+  plan[id] = { stage: defaultStageFor(course), groupChoices: {} };
   saveState();
   renderAll();
 }
@@ -199,7 +199,16 @@ function missingCompulsoryCourses() {
 function commitCompulsoryCourses() {
   const missing = missingCompulsoryCourses();
   if (!missing.length) return;
-  for (const c of missing) plan[c.id] = { stage: defaultStageFor(c) };
+  for (const c of missing) plan[c.id] = { stage: defaultStageFor(c), groupChoices: {} };
+  saveState();
+  renderAll();
+}
+
+function setGroupChoice(courseId, olaCode, groupKey) {
+  const entry = plan[courseId];
+  if (!entry) return;
+  if (!entry.groupChoices) entry.groupChoices = {};
+  entry.groupChoices[olaCode] = groupKey;
   saveState();
   renderAll();
 }
@@ -222,19 +231,45 @@ function loadState() {
 
 /* ---------------- schedule resolution ---------------- */
 
-function resolveActivitySessions(course, activity) {
+// A multi-group activity (e.g. a seminar offered at several alternative times)
+// only needs ONE of its listed groups to be satisfied — exactly like KU Loket's
+// own checkbox picker. We auto-pick a sensible default the first time an
+// activity is seen (preferring the course's own module, then the primary
+// module, then whatever comes first) and persist that choice so it stays
+// stable and editable — the user can freely switch to any other listed group,
+// including ones outside their module, to dodge a conflict.
+function isMultiGroup(activity) {
+  return !activity.groups._single;
+}
+
+function groupOptions(activity) {
+  return Object.entries(activity.groups).map(([key, g]) => ({ key, label: g.label || key }));
+}
+
+function defaultGroupKey(course, activity) {
   const groups = activity.groups;
-  if (groups._single) return groups._single;
-  const candidates = [];
-  if (course.sourceType === "module" && groups[course.sourceKey]) candidates.push(course.sourceKey);
-  if (compareModuleId && groups[compareModuleId] && !candidates.includes(compareModuleId)) candidates.push(compareModuleId);
-  if (!candidates.length) {
-    const keys = Object.keys(groups);
-    if (keys.length) candidates.push(keys[0]);
+  const keys = Object.keys(groups);
+  const bySourceModule = keys.find((k) => groups[k].moduleHint === course.sourceKey);
+  if (bySourceModule) return bySourceModule;
+  const byPrimary = compareModuleId && keys.find((k) => groups[k].moduleHint === compareModuleId);
+  if (byPrimary) return byPrimary;
+  return keys[0];
+}
+
+function resolveActivitySessions(course, activity, courseId) {
+  const groups = activity.groups;
+  if (groups._single) return groups._single.sessions;
+
+  const entry = plan[courseId];
+  let chosen = entry?.groupChoices?.[activity.olaCode];
+  if (!chosen || !groups[chosen]) {
+    chosen = defaultGroupKey(course, activity);
+    if (entry) {
+      if (!entry.groupChoices) entry.groupChoices = {};
+      entry.groupChoices[activity.olaCode] = chosen;
+    }
   }
-  let sessions = [];
-  for (const k of candidates) sessions = sessions.concat(groups[k] || []);
-  return sessions;
+  return groups[chosen] ? groups[chosen].sessions : [];
 }
 
 function getPlacedStage1Sessions() {
@@ -246,7 +281,7 @@ function getPlacedStage1Sessions() {
     const sched = schedule[id];
     if (!sched) continue;
     for (const activity of sched.activities) {
-      const sessions = resolveActivitySessions(course, activity);
+      const sessions = resolveActivitySessions(course, activity, id);
       for (const s of sessions) {
         out.push({ courseId: id, courseName: course.name, olaCode: activity.olaCode, olaName: activity.olaName, ...s });
       }
@@ -333,6 +368,7 @@ function renderAll() {
   renderSideTabs();
   updateCommitButton();
   renderStatusbar();
+  saveState(); // persists any group choices that were just auto-defaulted during resolution
 }
 
 function renderTitleblock() {
@@ -668,9 +704,22 @@ function openSlide(id) {
       conflictKeySet.add(b.courseId + "|" + b.olaCode + "|" + b.begin);
     }
     for (const activity of sched.activities) {
-      const sessions = resolveActivitySessions(c, activity).slice(0, 8);
-      if (!sessions.length) continue;
+      const allSessions = resolveActivitySessions(c, activity, id);
+      const sessions = allSessions.slice(0, 8);
+      if (!allSessions.length) continue;
+
+      let pickerHtml = "";
+      if (inPlan && isMultiGroup(activity)) {
+        const opts = groupOptions(activity);
+        const current = plan[id].groupChoices?.[activity.olaCode] || defaultGroupKey(c, activity);
+        pickerHtml = `<select class="group-picker" data-group-picker="${activity.olaCode}">
+          ${opts.map((o) => `<option value="${escapeHtml(o.key)}" ${o.key === current ? "selected" : ""}>${escapeHtml(o.label)}</option>`).join("")}
+        </select>
+        <div class="req-note">Only one of these needs to work for you — pick whichever avoids a clash.</div>`;
+      }
+
       sessionsHtml += `<div class="slide-field"><b>${escapeHtml(activity.olaName)}</b>
+        ${pickerHtml}
         <div class="slide-sessions">${sessions
           .map((s) => {
             const isConf = conflictKeySet.has(id + "|" + activity.olaCode + "|" + s.begin);
@@ -715,6 +764,12 @@ function openSlide(id) {
   });
   const stageSel = document.querySelector("[data-stage-select]");
   if (stageSel) stageSel.addEventListener("change", (e) => setStage(id, Number(e.target.value)));
+  document.querySelectorAll("[data-group-picker]").forEach((sel) => {
+    sel.addEventListener("change", (e) => {
+      setGroupChoice(id, sel.dataset.groupPicker, e.target.value);
+      openSlide(id);
+    });
+  });
 
   document.getElementById("slideover").classList.add("open");
   document.getElementById("scrim").classList.add("open");

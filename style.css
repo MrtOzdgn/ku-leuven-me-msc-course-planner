@@ -242,6 +242,10 @@ body {
 .slide-sub { font-size: 11px; color: var(--mute); margin: 0 0 16px; }
 .slide-field { margin-bottom: 14px; font-size: 12px; line-height: 1.55; }
 .slide-field b { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--blue); font-weight: 600; margin-bottom: 3px; }
+.group-picker {
+  width: 100%; font-size: 12px; padding: 6px 8px; margin-bottom: 4px;
+  border: 1px solid var(--orange); background: var(--orange-soft); color: var(--orange-text);
+}
 .slide-sessions { border: 1px solid var(--line); border-radius: 4px; margin-bottom: 14px; }
 .slide-session-row { display: flex; justify-content: space-between; gap: 8px; padding: 6px 9px; font-size: 11px; border-bottom: 1px solid var(--line); }
 .slide-session-row:last-child { border-bottom: none; }
