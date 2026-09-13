@@ -17,8 +17,10 @@ let compareModuleId = "";
 let searchText = "";
 let filterKey = "";
 let slideId = null;
-let activeTab = "catalog";
+let activeTab = "conflicts";
+let activeSection = "select";
 let weekIdx = 0;
+let expandedGroups = new Set(["core", "coreChoice", "thesis"]);
 
 init();
 
@@ -111,18 +113,23 @@ function buildFilterSelect() {
 function wireEvents() {
   document.getElementById("moduleSelect").addEventListener("change", (e) => {
     compareModuleId = e.target.value;
+    if (compareModuleId) expandedGroups.add(compareModuleId);
     saveState();
     renderAll();
   });
   document.getElementById("searchBox").addEventListener("input", (e) => {
     searchText = e.target.value.trim().toLowerCase();
-    renderCatalog();
+    renderCourseGroups();
   });
   document.getElementById("filterSelect").addEventListener("change", (e) => {
     filterKey = e.target.value;
-    renderCatalog();
+    if (filterKey) expandedGroups.add(filterKey);
+    renderCourseGroups();
   });
-  document.getElementById("commitBtn").addEventListener("click", commitCompulsoryCourses);
+
+  document.querySelectorAll(".section-tab").forEach((btn) => {
+    btn.addEventListener("click", () => { activeSection = btn.dataset.section; renderSections(); });
+  });
 
   document.getElementById("weekPrev").addEventListener("click", () => { weekIdx = Math.max(0, weekIdx - 1); renderCalendarArea(); });
   document.getElementById("weekNext").addEventListener("click", () => { weekIdx = Math.min(calendarWeeks.length - 1, weekIdx + 1); renderCalendarArea(); });
@@ -132,11 +139,28 @@ function wireEvents() {
     btn.addEventListener("click", () => { activeTab = btn.dataset.tab; renderSideTabs(); });
   });
 
-  document.getElementById("catList").addEventListener("click", (e) => {
-    const add = e.target.closest("[data-add]");
-    if (add) { placeCourse(add.dataset.add); return; }
+  document.getElementById("courseGroups").addEventListener("click", (e) => {
+    const gt = e.target.closest("[data-group-toggle]");
+    if (gt) {
+      const key = gt.dataset.groupToggle;
+      expandedGroups.has(key) ? expandedGroups.delete(key) : expandedGroups.add(key);
+      renderCourseGroups();
+      return;
+    }
     const nm = e.target.closest("[data-open]");
     if (nm) { openSlide(nm.dataset.open); return; }
+    const sb = e.target.closest("[data-stage-btn]");
+    if (sb) {
+      const [id, stage] = sb.dataset.stageBtn.split(":");
+      handleStageBtn(id, Number(stage));
+      return;
+    }
+  });
+  document.getElementById("courseGroups").addEventListener("change", (e) => {
+    const cb = e.target.closest("[data-toggle]");
+    if (cb) {
+      cb.checked ? placeCourse(cb.dataset.toggle) : removeCourse(cb.dataset.toggle);
+    }
   });
 
   document.getElementById("conflictList").addEventListener("click", (e) => {
@@ -144,7 +168,7 @@ function wireEvents() {
     if (item) {
       const targetMonday = item.dataset.jump;
       const idx = calendarWeeks.findIndex((w) => w.monday === targetMonday);
-      if (idx >= 0) { weekIdx = idx; renderCalendarArea(); document.querySelector('[data-tab="catalog"]').click(); }
+      if (idx >= 0) { weekIdx = idx; renderCalendarArea(); }
     }
   });
 
@@ -155,6 +179,12 @@ function wireEvents() {
 
   document.getElementById("closeSlide").addEventListener("click", closeSlide);
   document.getElementById("scrim").addEventListener("click", closeSlide);
+}
+
+function renderSections() {
+  document.querySelectorAll(".section-tab").forEach((btn) => btn.classList.toggle("active", btn.dataset.section === activeSection));
+  document.getElementById("sectionSelect").hidden = activeSection !== "select";
+  document.getElementById("sectionPlanner").hidden = activeSection !== "planner";
 }
 
 /* ---------------- plan ops ---------------- */
@@ -185,23 +215,15 @@ function setStage(id, stage) {
   renderAll();
 }
 
-function universalCompulsoryCourses() {
-  return flatCourses.filter((c) => c.sourceType === "category" && ALWAYS_CATEGORIES.includes(c.sourceKey) && c.compulsory);
-}
-function moduleCompulsoryCourses(moduleId) {
-  return flatCourses.filter((c) => c.sourceType === "module" && c.sourceKey === moduleId && c.compulsory);
-}
-function missingCompulsoryCourses() {
-  if (!compareModuleId) return [];
-  const needed = [...universalCompulsoryCourses(), ...moduleCompulsoryCourses(compareModuleId)];
-  return needed.filter((c) => !plan[c.id]);
-}
-function commitCompulsoryCourses() {
-  const missing = missingCompulsoryCourses();
-  if (!missing.length) return;
-  for (const c of missing) plan[c.id] = { stage: defaultStageFor(c), groupChoices: {} };
-  saveState();
-  renderAll();
+function handleStageBtn(id, stage) {
+  if (plan[id]) {
+    setStage(id, stage);
+  } else {
+    const course = courseIndex.get(id);
+    plan[id] = { stage, groupChoices: {} };
+    saveState();
+    renderAll();
+  }
 }
 
 function setGroupChoice(courseId, olaCode, groupKey) {
@@ -363,10 +385,13 @@ function weekdayLong(dateStr) {
 /* ---------------- render ---------------- */
 
 function renderAll() {
+  renderSections();
   renderTitleblock();
+  renderReqStrip();
+  renderCourseGroups();
   renderCalendarArea();
   renderSideTabs();
-  updateCommitButton();
+  renderPlannerConflictBadge();
   renderStatusbar();
   saveState(); // persists any group choices that were just auto-defaulted during resolution
 }
@@ -496,13 +521,9 @@ function clusterOverlaps(sortedSessions) {
 
 function renderSideTabs() {
   document.querySelectorAll(".side-tab").forEach((btn) => btn.classList.toggle("active", btn.dataset.tab === activeTab));
-  document.getElementById("panelCatalog").hidden = activeTab !== "catalog";
-  document.getElementById("panelRequirements").hidden = activeTab !== "requirements";
   document.getElementById("panelConflicts").hidden = activeTab !== "conflicts";
   document.getElementById("panelStage2").hidden = activeTab !== "stage2";
 
-  if (activeTab === "catalog") renderCatalog();
-  if (activeTab === "requirements") renderReqPanel();
   if (activeTab === "conflicts") renderConflictList();
   if (activeTab === "stage2") renderStage2List();
 
@@ -511,28 +532,62 @@ function renderSideTabs() {
   cc.textContent = conflicts.length ? `(${conflicts.length})` : "";
 }
 
-function renderCatalog() {
-  const list = document.getElementById("catList");
-  const filtered = flatCourses.filter((c) => {
-    if (plan[c.id]) return false;
-    if (searchText && !c.name.toLowerCase().includes(searchText)) return false;
-    if (filterKey && c.sourceKey !== filterKey) return false;
-    return true;
-  });
-  if (!filtered.length) {
-    list.innerHTML = `<div class="empty-hint">No matching courses.</div>`;
-    return;
-  }
-  list.innerHTML = filtered
-    .map((c) => {
-      const hasSched = !!schedule[c.id];
-      return `<div class="cat-row">
-      <span class="nm" data-open="${c.id}">${escapeHtml(c.name)}<span class="meta">${escapeHtml(c.sourceLabel)} · ${semesterLabel(c.semester)}${hasSched ? "" : ` · <span class="nosched">no published hours</span>`}</span></span>
-      <span class="ec tnum">${c.ects != null ? c.ects + " ECTS" : "?"}</span>
-      <button class="add-btn" data-add="${c.id}">Add</button>
+const GROUP_DEFS = () => [
+  ...Object.entries(catalog.categories).map(([key, cat]) => ({ key, label: cat.label, min: cat.minEcts ?? null, max: cat.maxEcts ?? null })),
+  ...catalog.modules.map((m) => ({ key: m.id, label: m.name, min: m.minEcts, max: null })),
+];
+
+function renderCourseGroups() {
+  const wrap = document.getElementById("courseGroups");
+  const groups = GROUP_DEFS();
+  let html = "";
+  for (const g of groups) {
+    let courses = flatCourses.filter((c) => c.sourceKey === g.key);
+    if (filterKey && filterKey !== g.key) continue;
+    if (searchText) courses = courses.filter((c) => c.name.toLowerCase().includes(searchText));
+    if (!courses.length) continue;
+
+    const selected = courses.filter((c) => plan[c.id]);
+    const sum = selected.reduce((s, c) => s + (c.ects || 0), 0);
+    const expanded = expandedGroups.has(g.key);
+    const isPrimary = g.key === compareModuleId;
+
+    html += `<div class="course-group${isPrimary ? " primary" : ""}">
+      <button class="group-header" data-group-toggle="${g.key}">
+        <span class="chev">${expanded ? "▾" : "▸"}</span>
+        <span class="glabel">${escapeHtml(g.label)}${isPrimary ? " ★" : ""}</span>
+        <span class="gstat tnum">${sum} / ${reqText(g.min, g.max)} ECTS</span>
+      </button>
+      <div class="group-body" ${expanded ? "" : "hidden"}>
+        ${courses.map((c) => courseRowHtml(c)).join("")}
+      </div>
     </div>`;
-    })
-    .join("");
+  }
+  wrap.innerHTML = html || `<div class="empty-hint">No matching courses.</div>`;
+}
+
+function courseRowHtml(c) {
+  const inPlan = !!plan[c.id];
+  const hasSched = !!schedule[c.id];
+  const fixedStage = FIXED_STAGE[c.sourceKey];
+  let stageHtml;
+  if (fixedStage) {
+    stageHtml = `<span class="stage-fixed">Stage ${fixedStage}</span>`;
+  } else {
+    const cur = inPlan ? plan[c.id].stage : null;
+    stageHtml = `<span class="stage-toggle">
+      <button class="stage-btn ${cur === 1 ? "active" : ""}" data-stage-btn="${c.id}:1">S1</button>
+      <button class="stage-btn ${cur === 2 ? "active" : ""}" data-stage-btn="${c.id}:2">S2</button>
+    </span>`;
+  }
+  return `<div class="course-row">
+    <input type="checkbox" class="course-check" data-toggle="${c.id}" ${inPlan ? "checked" : ""}>
+    <span class="ec tnum">${c.ects != null ? c.ects : "?"} <small>ECTS</small></span>
+    <span class="code">${escapeHtml(c.code || "")}</span>
+    <span class="nm" data-open="${c.id}">${escapeHtml(c.name)}${hasSched ? "" : ` <span class="nosched">no published hours</span>`}</span>
+    <span class="sem-badge">${semesterLabel(c.semester)}</span>
+    ${stageHtml}
+  </div>`;
 }
 
 function semesterLabel(sem) {
@@ -568,26 +623,24 @@ function overflowModuleEcts() {
   return total;
 }
 
-function renderReqPanel() {
-  const panel = document.getElementById("reqPanel");
-  const rows = [];
+function renderReqStrip() {
+  const strip = document.getElementById("reqStrip");
+  const pills = [];
   for (const key of ALWAYS_CATEGORIES) {
     const cat = catalog.categories[key];
     const items = planItemsFor("category", key);
     const sum = items.reduce((s, c) => s + (c.ects || 0), 0);
-    rows.push(reqRow(cat.label, sum, cat.minEcts ?? null, cat.maxEcts ?? null));
+    pills.push(reqPill(cat.label, sum, cat.minEcts ?? null, cat.maxEcts ?? null));
   }
   if (compareModuleId) {
     const mod = catalog.modules.find((m) => m.id === compareModuleId);
     const sum = planItemsFor("module", compareModuleId).reduce((s, c) => s + (c.ects || 0), 0);
-    rows.push(reqRow(mod.name, sum, mod.minEcts, null, "primary module"));
-  } else {
-    rows.push(`<div class="req-row"><div class="rlbl"><b>Module</b><span>none selected</span></div><div class="req-note">Pick a module in the titleblock above.</div></div>`);
+    pills.push(reqPill(mod.name, sum, mod.minEcts, null));
   }
   const electivesCat = catalog.categories.electives;
   const ownElectives = planItemsFor("category", "electives").reduce((s, c) => s + (c.ects || 0), 0);
   const overflow = overflowModuleEcts();
-  rows.push(reqRow(electivesCat.label, ownElectives + overflow, null, electivesCat.targetEcts ?? null, overflow > 0 ? `includes ${overflow} ECTS from non-primary modules` : null));
+  pills.push(reqPill(electivesCat.label, ownElectives + overflow, null, electivesCat.targetEcts ?? null));
 
   const unscheduled = Object.entries(plan)
     .filter(([id, e]) => e.stage === 1 && !schedule[id])
@@ -595,20 +648,14 @@ function renderReqPanel() {
     .filter(Boolean);
   let extra = "";
   if (unscheduled.length) {
-    extra = `<div class="req-row"><div class="rlbl"><b>Placed, no calendar data</b><span>${unscheduled.length}</span></div><div class="req-note">${unscheduled.map((c) => escapeHtml(c.name)).join(", ")}</div></div>`;
+    extra = `<div class="req-note-strip">Placed with no calendar data: ${unscheduled.map((c) => escapeHtml(c.name)).join(", ")}</div>`;
   }
-  panel.innerHTML = rows.join("") + extra;
+  strip.innerHTML = pills.join("") + extra;
 }
 
-function reqRow(label, sum, min, max, note) {
+function reqPill(label, sum, min, max) {
   const cls = statusClass(sum, min, max);
-  const target = max || min || sum || 1;
-  const pct = Math.max(4, Math.min(100, (sum / target) * 100));
-  return `<div class="req-row">
-    <div class="rlbl"><b>${escapeHtml(label)}</b><span class="tnum">${sum} / ${reqText(min, max)} ECTS</span></div>
-    <div class="req-bar"><div class="req-bar-fill ${cls}" style="width:${pct}%"></div></div>
-    ${note ? `<div class="req-note">${escapeHtml(note)}</div>` : ""}
-  </div>`;
+  return `<div class="req-pill ${cls}"><b>${escapeHtml(label)}</b><span class="tnum">${sum} / ${reqText(min, max)}</span></div>`;
 }
 
 function renderConflictList() {
@@ -651,20 +698,9 @@ function renderStage2List() {
   el.querySelectorAll("[data-open]").forEach((e) => e.addEventListener("click", () => openSlide(e.dataset.open)));
 }
 
-function updateCommitButton() {
-  const btn = document.getElementById("commitBtn");
-  if (!compareModuleId) { btn.hidden = true; return; }
-  const mod = catalog.modules.find((m) => m.id === compareModuleId);
-  const missing = missingCompulsoryCourses();
-  btn.hidden = false;
-  if (!missing.length) {
-    btn.textContent = "✓ Compulsory placed";
-    btn.disabled = true;
-  } else {
-    btn.textContent = `+ Place ${missing.length} compulsory`;
-    btn.disabled = false;
-    btn.title = `Core + Thesis + ${mod.name}`;
-  }
+function renderPlannerConflictBadge() {
+  const n = computeAllConflicts().length;
+  document.getElementById("plannerConflictBadge").textContent = n ? `(${n})` : "";
 }
 
 function renderStatusbar() {
