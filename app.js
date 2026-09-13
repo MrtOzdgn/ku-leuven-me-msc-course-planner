@@ -1,39 +1,43 @@
-const STORAGE_KEY = "coursePlannerV2";
-
-const TERM_DEFS = [
-  { id: "Y1S1", label: "Y1 · Sem 1" },
-  { id: "Y1S2", label: "Y1 · Sem 2" },
-  { id: "Y2S1", label: "Y2 · Sem 1" },
-  { id: "Y2S2", label: "Y2 · Sem 2" },
-];
+const STORAGE_KEY = "coursePlannerV3";
+const DAY_START = 7;
+const DAY_END = 20;
+const HOUR_PX = 52;
+const DAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 const ALWAYS_CATEGORIES = ["core", "coreChoice", "generalInterest", "generalBroadening", "thesis"];
+const FIXED_STAGE = { core: 1, coreChoice: 1, thesis: 2 };
 
 let catalog = null;
 let curriculum = {};
+let schedule = {};
+let calendarWeeks = [];
 let flatCourses = [];
 let courseIndex = new Map();
-let plan = {};            // id -> termId ("Y1S1" | "Y1S2" | "Y2S1" | "Y2S2")
+let plan = {};              // id -> { stage: 1|2 }
 let compareModuleId = "";
 let searchText = "";
 let filterKey = "";
 let slideId = null;
+let activeTab = "catalog";
+let weekIdx = 0;
 
 init();
 
 async function init() {
   loadState();
   try {
-    const res = await fetch("data/courses.json");
-    catalog = await res.json();
+    const [c, cur, sched, cal] = await Promise.all([
+      fetch("data/courses.json").then((r) => r.json()),
+      fetch("data/curriculum.json").then((r) => r.json()).catch(() => ({})),
+      fetch("data/schedule.json").then((r) => r.json()).catch(() => ({})),
+      fetch("data/academic-calendar.json").then((r) => r.json()).catch(() => ({ weeks: [] })),
+    ]);
+    catalog = c;
+    curriculum = cur;
+    schedule = sched;
+    calendarWeeks = cal.weeks || [];
   } catch (e) {
-    document.getElementById("statusbar").textContent = "Failed to load data/courses.json — " + e.message;
+    document.getElementById("statusbar").textContent = "Failed to load data — " + e.message;
     return;
-  }
-  try {
-    const curRes = await fetch("data/curriculum.json");
-    if (curRes.ok) curriculum = await curRes.json();
-  } catch (e) {
-    // non-fatal
   }
 
   buildFlatIndex();
@@ -41,8 +45,11 @@ async function init() {
   buildModuleSelect();
   buildFilterSelect();
   wireEvents();
+  weekIdx = 0;
   renderAll();
 }
+
+/* ---------------- data setup ---------------- */
 
 function buildFlatIndex() {
   flatCourses = [];
@@ -68,8 +75,8 @@ function normalizePlan() {
   for (const id of Object.keys(plan)) {
     const course = courseIndex.get(id);
     if (!course) { delete plan[id]; changed = true; continue; }
-    const allowed = validTermsForCourse(course);
-    if (!allowed.includes(plan[id])) { plan[id] = defaultTerm(course); changed = true; }
+    const fixed = FIXED_STAGE[course.sourceKey];
+    if (fixed && plan[id].stage !== fixed) { plan[id].stage = fixed; changed = true; }
   }
   if (changed) saveState();
 }
@@ -99,32 +106,30 @@ function buildFilterSelect() {
   }
 }
 
+/* ---------------- events ---------------- */
+
 function wireEvents() {
   document.getElementById("moduleSelect").addEventListener("change", (e) => {
     compareModuleId = e.target.value;
     saveState();
     renderAll();
   });
-
   document.getElementById("searchBox").addEventListener("input", (e) => {
     searchText = e.target.value.trim().toLowerCase();
     renderCatalog();
   });
-
   document.getElementById("filterSelect").addEventListener("change", (e) => {
     filterKey = e.target.value;
     renderCatalog();
   });
-
   document.getElementById("commitBtn").addEventListener("click", commitCompulsoryCourses);
 
-  document.getElementById("timeline").addEventListener("click", (e) => {
-    const mv = e.target.closest("[data-move]");
-    if (mv) { moveChip(mv.dataset.move, mv.dataset.dir); return; }
-    const rm = e.target.closest("[data-remove]");
-    if (rm) { removeCourse(rm.dataset.remove); return; }
-    const chip = e.target.closest("[data-chip]");
-    if (chip) { openSlide(chip.dataset.chip); return; }
+  document.getElementById("weekPrev").addEventListener("click", () => { weekIdx = Math.max(0, weekIdx - 1); renderCalendarArea(); });
+  document.getElementById("weekNext").addEventListener("click", () => { weekIdx = Math.min(calendarWeeks.length - 1, weekIdx + 1); renderCalendarArea(); });
+  document.getElementById("weekToday").addEventListener("click", () => { weekIdx = closestWeekIndexToToday(); renderCalendarArea(); });
+
+  document.querySelectorAll(".side-tab").forEach((btn) => {
+    btn.addEventListener("click", () => { activeTab = btn.dataset.tab; renderSideTabs(); });
   });
 
   document.getElementById("catList").addEventListener("click", (e) => {
@@ -134,30 +139,34 @@ function wireEvents() {
     if (nm) { openSlide(nm.dataset.open); return; }
   });
 
+  document.getElementById("conflictList").addEventListener("click", (e) => {
+    const item = e.target.closest("[data-jump]");
+    if (item) {
+      const targetMonday = item.dataset.jump;
+      const idx = calendarWeeks.findIndex((w) => w.monday === targetMonday);
+      if (idx >= 0) { weekIdx = idx; renderCalendarArea(); document.querySelector('[data-tab="catalog"]').click(); }
+    }
+  });
+
+  document.getElementById("stage2List").addEventListener("click", (e) => {
+    const rm = e.target.closest("[data-remove]");
+    if (rm) removeCourse(rm.dataset.remove);
+  });
+
   document.getElementById("closeSlide").addEventListener("click", closeSlide);
   document.getElementById("scrim").addEventListener("click", closeSlide);
 }
 
-/* ---------------- state ops ---------------- */
+/* ---------------- plan ops ---------------- */
 
-function defaultTerm(course) {
-  if (course.ects >= 20) return "Y2S1";
-  if (course.semester === 1) return "Y1S1";
-  if (course.semester === 2) return "Y1S2";
-  return "Y1S1";
-}
-
-function validTermsForCourse(course) {
-  if (course.ects >= 20) return TERM_DEFS.map((t) => t.id);
-  if (course.semester === 1) return ["Y1S1", "Y2S1"];
-  if (course.semester === 2) return ["Y1S2", "Y2S2"];
-  return TERM_DEFS.map((t) => t.id);
+function defaultStageFor(course) {
+  return FIXED_STAGE[course.sourceKey] || 1;
 }
 
 function placeCourse(id) {
   if (plan[id]) return;
   const course = courseIndex.get(id);
-  plan[id] = defaultTerm(course);
+  plan[id] = { stage: defaultStageFor(course) };
   saveState();
   renderAll();
 }
@@ -169,21 +178,15 @@ function removeCourse(id) {
   if (slideId === id) closeSlide();
 }
 
-function moveChip(id, dir) {
-  const course = courseIndex.get(id);
-  const allowed = validTermsForCourse(course);
-  const idx = allowed.indexOf(plan[id]);
-  const next = idx + (dir === "next" ? 1 : -1);
-  if (next < 0 || next >= allowed.length) return;
-  plan[id] = allowed[next];
+function setStage(id, stage) {
+  if (!plan[id]) return;
+  plan[id].stage = stage;
   saveState();
   renderAll();
 }
 
 function universalCompulsoryCourses() {
-  return flatCourses.filter(
-    (c) => c.sourceType === "category" && ALWAYS_CATEGORIES.includes(c.sourceKey) && c.compulsory
-  );
+  return flatCourses.filter((c) => c.sourceType === "category" && ALWAYS_CATEGORIES.includes(c.sourceKey) && c.compulsory);
 }
 function moduleCompulsoryCourses(moduleId) {
   return flatCourses.filter((c) => c.sourceType === "module" && c.sourceKey === moduleId && c.compulsory);
@@ -196,7 +199,7 @@ function missingCompulsoryCourses() {
 function commitCompulsoryCourses() {
   const missing = missingCompulsoryCourses();
   if (!missing.length) return;
-  for (const c of missing) plan[c.id] = defaultTerm(c);
+  for (const c of missing) plan[c.id] = { stage: defaultStageFor(c) };
   saveState();
   renderAll();
 }
@@ -217,8 +220,303 @@ function loadState() {
   }
 }
 
-/* ---------------- derived data ---------------- */
+/* ---------------- schedule resolution ---------------- */
 
+function resolveActivitySessions(course, activity) {
+  const groups = activity.groups;
+  if (groups._single) return groups._single;
+  const candidates = [];
+  if (course.sourceType === "module" && groups[course.sourceKey]) candidates.push(course.sourceKey);
+  if (compareModuleId && groups[compareModuleId] && !candidates.includes(compareModuleId)) candidates.push(compareModuleId);
+  if (!candidates.length) {
+    const keys = Object.keys(groups);
+    if (keys.length) candidates.push(keys[0]);
+  }
+  let sessions = [];
+  for (const k of candidates) sessions = sessions.concat(groups[k] || []);
+  return sessions;
+}
+
+function getPlacedStage1Sessions() {
+  const out = [];
+  for (const [id, entry] of Object.entries(plan)) {
+    if (entry.stage !== 1) continue;
+    const course = courseIndex.get(id);
+    if (!course) continue;
+    const sched = schedule[id];
+    if (!sched) continue;
+    for (const activity of sched.activities) {
+      const sessions = resolveActivitySessions(course, activity);
+      for (const s of sessions) {
+        out.push({ courseId: id, courseName: course.name, olaCode: activity.olaCode, olaName: activity.olaName, ...s });
+      }
+    }
+  }
+  return out;
+}
+
+function sessionOverlaps(a, b) {
+  return a.begin < b.end && b.begin < a.end;
+}
+
+function computeAllConflicts() {
+  const sessions = getPlacedStage1Sessions();
+  const conflicts = [];
+  const seen = new Set();
+  for (let i = 0; i < sessions.length; i++) {
+    for (let j = i + 1; j < sessions.length; j++) {
+      const a = sessions[i], b = sessions[j];
+      if (a.courseId === b.courseId) continue;
+      if (a.date !== b.date) continue;
+      if (sessionOverlaps(a, b)) {
+        const key = [a.courseId, a.olaCode, a.begin, b.courseId, b.olaCode, b.begin].sort().join("|");
+        if (seen.has(key)) continue;
+        seen.add(key);
+        conflicts.push({ a, b, date: a.date });
+      }
+    }
+  }
+  conflicts.sort((x, y) => (x.date < y.date ? -1 : x.date > y.date ? 1 : 0));
+  return conflicts;
+}
+
+/* ---------------- week nav helpers ---------------- */
+
+// All date math below is done in UTC-only terms (construct with a "Z" suffix,
+// read/write with the UTC getters, format with timeZone:"UTC") so a viewer's
+// local timezone can never shift the calendar by a day.
+
+function mondayOf(dateStr) {
+  const d = new Date(dateStr + "T00:00:00Z");
+  const day = d.getUTCDay();
+  const diff = day === 0 ? -6 : 1 - day;
+  d.setUTCDate(d.getUTCDate() + diff);
+  return d.toISOString().slice(0, 10);
+}
+
+function closestWeekIndexToToday() {
+  if (!calendarWeeks.length) return 0;
+  const now = new Date();
+  const todayIso = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())).toISOString().slice(0, 10);
+  const todayMonday = mondayOf(todayIso);
+  let best = 0;
+  for (let i = 0; i < calendarWeeks.length; i++) {
+    if (calendarWeeks[i].monday <= todayMonday) best = i;
+  }
+  return best;
+}
+
+function addDays(dateStr, n) {
+  const d = new Date(dateStr + "T00:00:00Z");
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+function fmtShort(dateStr) {
+  const d = new Date(dateStr + "T00:00:00Z");
+  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
+}
+function fmtLong(dateStr) {
+  const d = new Date(dateStr + "T00:00:00Z");
+  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+}
+function weekdayLong(dateStr) {
+  const d = new Date(dateStr + "T00:00:00Z");
+  return d.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
+}
+
+/* ---------------- render ---------------- */
+
+function renderAll() {
+  renderTitleblock();
+  renderCalendarArea();
+  renderSideTabs();
+  updateCommitButton();
+  renderStatusbar();
+}
+
+function renderTitleblock() {
+  const coreSum = flatCourses
+    .filter((c) => c.sourceType === "category" && c.sourceKey === "core" && plan[c.id])
+    .reduce((s, c) => s + (c.ects || 0), 0);
+  document.getElementById("coreStat").textContent = `${coreSum}/${catalog.categories.core.minEcts}`;
+
+  const modStatEl = document.getElementById("modStat");
+  if (compareModuleId) {
+    const mod = catalog.modules.find((m) => m.id === compareModuleId);
+    const sum = flatCourses
+      .filter((c) => c.sourceType === "module" && c.sourceKey === compareModuleId && plan[c.id])
+      .reduce((s, c) => s + (c.ects || 0), 0);
+    modStatEl.textContent = `${sum}/${mod.minEcts}`;
+  } else {
+    modStatEl.textContent = "—/—";
+  }
+
+  const total = Object.keys(plan).reduce((s, id) => s + (courseIndex.get(id)?.ects || 0), 0);
+  document.getElementById("totalStat").textContent = `${total}/${catalog.totalEcts}`;
+}
+
+function renderCalendarArea() {
+  if (!calendarWeeks.length) return;
+  const week = calendarWeeks[weekIdx];
+  const monday = week.monday;
+  const friday = addDays(monday, 4);
+  document.getElementById("weekRange").textContent = `${fmtLong(monday)} – ${fmtLong(friday)}`;
+  document.getElementById("semBadge").textContent = `Semester ${week.semester}`;
+  document.getElementById("weekPrev").disabled = weekIdx === 0;
+  document.getElementById("weekNext").disabled = weekIdx === calendarWeeks.length - 1;
+
+  const allSessions = getPlacedStage1Sessions();
+  const allConflicts = computeAllConflicts();
+  const conflictKeySet = new Set();
+  for (const { a, b } of allConflicts) {
+    conflictKeySet.add(a.courseId + "|" + a.olaCode + "|" + a.begin);
+    conflictKeySet.add(b.courseId + "|" + b.olaCode + "|" + b.begin);
+  }
+
+  const totalHeight = (DAY_END - DAY_START) * HOUR_PX;
+
+  const hoursWrap = document.getElementById("calHours");
+  hoursWrap.style.height = totalHeight + "px";
+  hoursWrap.innerHTML = "";
+  for (let h = DAY_START; h <= DAY_END; h++) {
+    const lbl = document.createElement("div");
+    lbl.className = "cal-hour-label";
+    lbl.style.top = (h - DAY_START) * HOUR_PX + "px";
+    lbl.textContent = `${h}:00`;
+    hoursWrap.appendChild(lbl);
+  }
+
+  const daysWrap = document.getElementById("calDays");
+  daysWrap.innerHTML = "";
+  for (let d = 0; d < 5; d++) {
+    const dateStr = addDays(monday, d);
+    const daySessions = allSessions.filter((s) => s.date === dateStr).sort((a, b) => (a.begin < b.begin ? -1 : 1));
+
+    const col = document.createElement("div");
+    col.className = "cal-day-col";
+    const head = document.createElement("div");
+    head.className = "cal-day-head";
+    head.textContent = `${DAY_NAMES[d].slice(0, 3)} ${fmtShort(dateStr)}`;
+    col.appendChild(head);
+
+    const bodyEl = document.createElement("div");
+    bodyEl.className = "cal-day-body";
+    bodyEl.style.height = totalHeight + "px";
+
+    const clusters = clusterOverlaps(daySessions);
+    for (const cluster of clusters) {
+      cluster.forEach((s, i) => {
+        const block = document.createElement("div");
+        const isConflict = conflictKeySet.has(s.courseId + "|" + s.olaCode + "|" + s.begin);
+        const isPrimary = courseIndex.get(s.courseId)?.sourceKey === compareModuleId;
+        block.className = "cal-block" + (isConflict ? " conflict" : isPrimary ? " primary-mod" : "");
+        const top = minutesFromDayStart(s.begin);
+        const height = minutesFromDayStart(s.end) - top;
+        block.style.top = (top / 60) * HOUR_PX + "px";
+        block.style.height = Math.max(16, (height / 60) * HOUR_PX - 2) + "px";
+        block.style.width = 100 / cluster.length - 1 + "%";
+        block.style.left = (100 / cluster.length) * i + "%";
+        block.dataset.open = s.courseId;
+        block.innerHTML = `<span class="nm">${escapeHtml(s.courseName)}</span><span class="meta">${timeOf(s.begin)}–${timeOf(s.end)} · ${escapeHtml((s.room || "").split(" ")[0] || "")}</span>`;
+        bodyEl.appendChild(block);
+      });
+    }
+    col.appendChild(bodyEl);
+    daysWrap.appendChild(col);
+  }
+  daysWrap.querySelectorAll("[data-open]").forEach((el) => el.addEventListener("click", () => openSlide(el.dataset.open)));
+
+  document.getElementById("conflictFlag").hidden = allConflicts.length === 0;
+  if (allConflicts.length) document.getElementById("conflictFlag").textContent = `${allConflicts.length} conflict${allConflicts.length === 1 ? "" : "s"} in your plan`;
+}
+
+function minutesFromDayStart(iso) {
+  const d = new Date(iso);
+  return (d.getHours() - DAY_START) * 60 + d.getMinutes();
+}
+function timeOf(iso) {
+  const d = new Date(iso);
+  return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+}
+
+function clusterOverlaps(sortedSessions) {
+  const clusters = [];
+  for (const s of sortedSessions) {
+    let placed = false;
+    for (const cluster of clusters) {
+      if (cluster.some((o) => sessionOverlaps(o, s))) {
+        cluster.push(s);
+        placed = true;
+        break;
+      }
+    }
+    if (!placed) clusters.push([s]);
+  }
+  return clusters;
+}
+
+/* ---------------- side tabs ---------------- */
+
+function renderSideTabs() {
+  document.querySelectorAll(".side-tab").forEach((btn) => btn.classList.toggle("active", btn.dataset.tab === activeTab));
+  document.getElementById("panelCatalog").hidden = activeTab !== "catalog";
+  document.getElementById("panelRequirements").hidden = activeTab !== "requirements";
+  document.getElementById("panelConflicts").hidden = activeTab !== "conflicts";
+  document.getElementById("panelStage2").hidden = activeTab !== "stage2";
+
+  if (activeTab === "catalog") renderCatalog();
+  if (activeTab === "requirements") renderReqPanel();
+  if (activeTab === "conflicts") renderConflictList();
+  if (activeTab === "stage2") renderStage2List();
+
+  const conflicts = computeAllConflicts();
+  const cc = document.getElementById("conflictCount");
+  cc.textContent = conflicts.length ? `(${conflicts.length})` : "";
+}
+
+function renderCatalog() {
+  const list = document.getElementById("catList");
+  const filtered = flatCourses.filter((c) => {
+    if (plan[c.id]) return false;
+    if (searchText && !c.name.toLowerCase().includes(searchText)) return false;
+    if (filterKey && c.sourceKey !== filterKey) return false;
+    return true;
+  });
+  if (!filtered.length) {
+    list.innerHTML = `<div class="empty-hint">No matching courses.</div>`;
+    return;
+  }
+  list.innerHTML = filtered
+    .map((c) => {
+      const hasSched = !!schedule[c.id];
+      return `<div class="cat-row">
+      <span class="nm" data-open="${c.id}">${escapeHtml(c.name)}<span class="meta">${escapeHtml(c.sourceLabel)} · ${semesterLabel(c.semester)}${hasSched ? "" : ` · <span class="nosched">no published hours</span>`}</span></span>
+      <span class="ec tnum">${c.ects != null ? c.ects + " ECTS" : "?"}</span>
+      <button class="add-btn" data-add="${c.id}">Add</button>
+    </div>`;
+    })
+    .join("");
+}
+
+function semesterLabel(sem) {
+  if (sem === 1) return "Sem 1";
+  if (sem === 2) return "Sem 2";
+  if (sem === "either") return "Either sem";
+  return "Sem ?";
+}
+
+function statusClass(sum, min, max) {
+  if (max != null && sum > max) return "over";
+  if (min != null && sum < min) return "under";
+  return "ok";
+}
+function reqText(min, max) {
+  if (min != null && max != null) return `${min}–${max}`;
+  if (max != null) return `up to ${max}`;
+  if (min != null) return `min ${min}`;
+  return "flexible";
+}
 function planItemsFor(sourceType, sourceKey) {
   return Object.keys(plan)
     .map((id) => courseIndex.get(id))
@@ -233,97 +531,16 @@ function overflowModuleEcts() {
   }
   return total;
 }
-function statusClass(sum, min, max) {
-  if (max != null && sum > max) return "over";
-  if (min != null && sum < min) return "under";
-  return "ok";
-}
-function reqText(min, max) {
-  if (min != null && max != null) return `${min}–${max}`;
-  if (max != null) return `up to ${max}`;
-  if (min != null) return `min ${min}`;
-  return "flexible";
-}
-
-/* ---------------- render ---------------- */
-
-function renderAll() {
-  renderTitleblock();
-  renderTimeline();
-  renderReqPanel();
-  renderCatalog();
-  updateCommitButton();
-  renderStatusbar();
-}
-
-function renderTitleblock() {
-  const coreSum = planItemsFor("category", "core").reduce((s, c) => s + (c.ects || 0), 0);
-  const coreMin = catalog.categories.core.minEcts;
-  document.getElementById("coreStat").textContent = `${coreSum}/${coreMin}`;
-
-  const modStatEl = document.getElementById("modStat");
-  if (compareModuleId) {
-    const mod = catalog.modules.find((m) => m.id === compareModuleId);
-    const sum = planItemsFor("module", compareModuleId).reduce((s, c) => s + (c.ects || 0), 0);
-    modStatEl.textContent = `${sum}/${mod.minEcts}`;
-  } else {
-    modStatEl.textContent = "—/—";
-  }
-
-  const total = Object.keys(plan).reduce((s, id) => s + (courseIndex.get(id)?.ects || 0), 0);
-  document.getElementById("totalStat").textContent = `${total}/${catalog.totalEcts}`;
-}
-
-function renderTimeline() {
-  const wrap = document.getElementById("timeline");
-  wrap.innerHTML = TERM_DEFS.map((t) => {
-    const items = Object.entries(plan)
-      .filter(([, term]) => term === t.id)
-      .map(([id]) => courseIndex.get(id))
-      .filter(Boolean);
-    const sum = items.reduce((s, c) => s + (c.ects || 0), 0);
-    const pct = Math.min(100, (sum / 30) * 100);
-    return `<div class="sem-col">
-      <div class="sem-head">
-        <span class="lbl">${t.label}</span>
-        <div class="gauge"><div class="gauge-fill ${sum > 32 ? "over" : ""}" style="width:${pct}%"></div></div>
-        <div class="num tnum">${sum} ECTS</div>
-      </div>
-      <div class="chips">${
-        items.length ? items.map((c) => chipHtml(c, t.id)).join("") : `<div class="empty-slot">Nothing placed here</div>`
-      }</div>
-    </div>`;
-  }).join("");
-}
-
-function chipHtml(c, termId) {
-  const allowed = validTermsForCourse(c);
-  const idx = allowed.indexOf(termId);
-  const canPrev = idx > 0;
-  const canNext = idx < allowed.length - 1;
-  return `<div class="chip" data-chip="${c.id}">
-    <span class="code">${escapeHtml(c.code || "")}</span>
-    <span class="ec tnum">${c.ects != null ? c.ects : "?"}</span>
-    <span class="nm">${escapeHtml(c.name)}</span>
-    <div class="mv">
-      <button data-move="${c.id}" data-dir="prev" ${canPrev ? "" : "disabled"}>&larr;</button>
-      <button data-move="${c.id}" data-dir="next" ${canNext ? "" : "disabled"}>&rarr;</button>
-      <button class="rm" data-remove="${c.id}" style="margin-left:auto">remove</button>
-    </div>
-  </div>`;
-}
 
 function renderReqPanel() {
   const panel = document.getElementById("reqPanel");
   const rows = [];
-
   for (const key of ALWAYS_CATEGORIES) {
     const cat = catalog.categories[key];
     const items = planItemsFor("category", key);
     const sum = items.reduce((s, c) => s + (c.ects || 0), 0);
     rows.push(reqRow(cat.label, sum, cat.minEcts ?? null, cat.maxEcts ?? null));
   }
-
   if (compareModuleId) {
     const mod = catalog.modules.find((m) => m.id === compareModuleId);
     const sum = planItemsFor("module", compareModuleId).reduce((s, c) => s + (c.ects || 0), 0);
@@ -331,13 +548,20 @@ function renderReqPanel() {
   } else {
     rows.push(`<div class="req-row"><div class="rlbl"><b>Module</b><span>none selected</span></div><div class="req-note">Pick a module in the titleblock above.</div></div>`);
   }
-
   const electivesCat = catalog.categories.electives;
   const ownElectives = planItemsFor("category", "electives").reduce((s, c) => s + (c.ects || 0), 0);
   const overflow = overflowModuleEcts();
   rows.push(reqRow(electivesCat.label, ownElectives + overflow, null, electivesCat.targetEcts ?? null, overflow > 0 ? `includes ${overflow} ECTS from non-primary modules` : null));
 
-  panel.innerHTML = rows.join("");
+  const unscheduled = Object.entries(plan)
+    .filter(([id, e]) => e.stage === 1 && !schedule[id])
+    .map(([id]) => courseIndex.get(id))
+    .filter(Boolean);
+  let extra = "";
+  if (unscheduled.length) {
+    extra = `<div class="req-row"><div class="rlbl"><b>Placed, no calendar data</b><span>${unscheduled.length}</span></div><div class="req-note">${unscheduled.map((c) => escapeHtml(c.name)).join(", ")}</div></div>`;
+  }
+  panel.innerHTML = rows.join("") + extra;
 }
 
 function reqRow(label, sum, min, max, note) {
@@ -351,36 +575,44 @@ function reqRow(label, sum, min, max, note) {
   </div>`;
 }
 
-function renderCatalog() {
-  const list = document.getElementById("catList");
-  const filtered = flatCourses.filter((c) => {
-    if (plan[c.id]) return false;
-    if (searchText && !c.name.toLowerCase().includes(searchText)) return false;
-    if (filterKey && c.sourceKey !== filterKey) return false;
-    return true;
-  });
-
-  if (!filtered.length) {
-    list.innerHTML = `<div class="empty-slot">No matching courses.</div>`;
+function renderConflictList() {
+  const el = document.getElementById("conflictList");
+  const conflicts = computeAllConflicts();
+  if (!conflicts.length) {
+    el.innerHTML = `<div class="empty-hint">No conflicts detected in your current plan.</div>`;
     return;
   }
-
-  list.innerHTML = filtered
-    .map(
-      (c) => `<div class="cat-row">
-      <span class="nm" data-open="${c.id}">${escapeHtml(c.name)}<span class="meta">${escapeHtml(c.sourceLabel)} · ${semesterLabel(c.semester)}</span></span>
-      <span class="ec tnum">${c.ects != null ? c.ects + " ECTS" : "?"}</span>
-      <button class="add-btn" data-add="${c.id}">Place</button>
-    </div>`
-    )
+  el.innerHTML = conflicts
+    .map(({ a, b, date }) => {
+      const monday = mondayOf(date);
+      return `<div class="conflict-item" data-jump="${monday}">
+      <div class="date">${fmtLong(date)} — ${weekdayLong(date)}</div>
+      <div class="pair">${escapeHtml(a.courseName)} <span class="tnum">(${timeOf(a.begin)}–${timeOf(a.end)})</span><br>vs<br>${escapeHtml(b.courseName)} <span class="tnum">(${timeOf(b.begin)}–${timeOf(b.end)})</span></div>
+    </div>`;
+    })
     .join("");
 }
 
-function semesterLabel(sem) {
-  if (sem === 1) return "Sem 1";
-  if (sem === 2) return "Sem 2";
-  if (sem === "either") return "Either sem";
-  return "Sem ?";
+function renderStage2List() {
+  const el = document.getElementById("stage2List");
+  const items = Object.entries(plan)
+    .filter(([, e]) => e.stage === 2)
+    .map(([id]) => courseIndex.get(id))
+    .filter(Boolean);
+  if (!items.length) {
+    el.innerHTML = `<div class="empty-hint">No Stage 2 courses in your plan yet. Use the slide-over (click a course) to push a flexible course to Stage 2.</div>`;
+    return;
+  }
+  el.innerHTML = items
+    .map(
+      (c) => `<div class="stage2-row">
+      <span data-open="${c.id}" style="cursor:pointer">${escapeHtml(c.name)}<br><span class="ec">${escapeHtml(c.sourceLabel)}</span></span>
+      <span class="ec tnum">${c.ects} ECTS</span>
+      <button class="add-btn" data-remove="${c.id}" style="border-color:var(--over);background:var(--over-soft);color:var(--over)">Remove</button>
+    </div>`
+    )
+    .join("");
+  el.querySelectorAll("[data-open]").forEach((e) => e.addEventListener("click", () => openSlide(e.dataset.open)));
 }
 
 function updateCommitButton() {
@@ -402,7 +634,7 @@ function updateCommitButton() {
 function renderStatusbar() {
   const count = Object.keys(plan).length;
   document.getElementById("statusbar").textContent =
-    `${count} course${count === 1 ? "" : "s"} on the sheet · data sourced from KU Leuven onderwijsaanbod (verify against the official catalogue before enrolling)`;
+    `${count} course${count === 1 ? "" : "s"} in your plan · schedule data sourced from KU Leuven's official timetable export (verify against KU Loket before finalizing your ISP)`;
 }
 
 /* ---------------- slide-over ---------------- */
@@ -424,6 +656,34 @@ function openSlide(id) {
     : [];
 
   const inPlan = !!plan[id];
+  const fixedStage = FIXED_STAGE[c.sourceKey];
+  const sched = schedule[id];
+
+  let sessionsHtml = "";
+  if (sched) {
+    const conflicts = computeAllConflicts();
+    const conflictKeySet = new Set();
+    for (const { a, b } of conflicts) {
+      conflictKeySet.add(a.courseId + "|" + a.olaCode + "|" + a.begin);
+      conflictKeySet.add(b.courseId + "|" + b.olaCode + "|" + b.begin);
+    }
+    for (const activity of sched.activities) {
+      const sessions = resolveActivitySessions(c, activity).slice(0, 8);
+      if (!sessions.length) continue;
+      sessionsHtml += `<div class="slide-field"><b>${escapeHtml(activity.olaName)}</b>
+        <div class="slide-sessions">${sessions
+          .map((s) => {
+            const isConf = conflictKeySet.has(id + "|" + activity.olaCode + "|" + s.begin);
+            return `<div class="slide-session-row${isConf ? " conflict" : ""}">
+              <span>${fmtShort(s.date)} ${s.weekday.slice(0, 3)}</span>
+              <span class="tnum">${timeOf(s.begin)}–${timeOf(s.end)}</span>
+            </div>`;
+          })
+          .join("")}</div>
+      </div>`;
+    }
+  }
+
   document.getElementById("slideContent").innerHTML = `
     <span class="slide-code">${escapeHtml(c.code || "")}</span>
     <h3 class="slide-title">${escapeHtml(c.name)}</h3>
@@ -433,15 +693,28 @@ function openSlide(id) {
         ? fields.map(([label, val]) => `<div class="slide-field"><b>${escapeHtml(label)}</b>${escapeHtml(val)}</div>`).join("")
         : `<div class="slide-field"><b>Curriculum info</b><em>Not available for this course.</em></div>`
     }
+    ${sessionsHtml || (sched ? "" : `<div class="slide-field"><b>Weekly schedule</b><em>No published contact hours found for this course in the KU Leuven export.</em></div>`)}
     ${info && info.sourceUrl ? `<a class="slide-link" href="${info.sourceUrl}" target="_blank" rel="noopener">View official syllabus &#8599;</a>` : ""}
     <div class="slide-action">
-      <button class="${inPlan ? "rm" : ""}" data-slide-toggle="${id}">${inPlan ? "Remove from sheet" : "Place on sheet"}</button>
+      <button class="${inPlan ? "rm" : ""}" data-slide-toggle="${id}">${inPlan ? "Remove from plan" : "Add to plan"}</button>
+      ${
+        inPlan && !fixedStage
+          ? `<select data-stage-select="${id}">
+              <option value="1" ${plan[id].stage === 1 ? "selected" : ""}>Stage 1</option>
+              <option value="2" ${plan[id].stage === 2 ? "selected" : ""}>Stage 2</option>
+            </select>`
+          : inPlan
+          ? `<span class="ec">Stage ${fixedStage} (fixed)</span>`
+          : ""
+      }
     </div>
   `;
   document.querySelector("[data-slide-toggle]").addEventListener("click", () => {
     inPlan ? removeCourse(id) : placeCourse(id);
     if (!inPlan) openSlide(id);
   });
+  const stageSel = document.querySelector("[data-stage-select]");
+  if (stageSel) stageSel.addEventListener("change", (e) => setStage(id, Number(e.target.value)));
 
   document.getElementById("slideover").classList.add("open");
   document.getElementById("scrim").classList.add("open");

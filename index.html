@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KU Leuven MechEng — Course Planner</title>
+<title>KU Leuven MechEng — Weekly Planner</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -34,18 +34,48 @@
   </div>
 </div>
 
+<div class="weeknav">
+  <button id="weekPrev" class="wn-btn" aria-label="Previous week">&larr;</button>
+  <button id="weekToday" class="wn-btn wn-today">Today</button>
+  <button id="weekNext" class="wn-btn" aria-label="Next week">&rarr;</button>
+  <div class="wn-range" id="weekRange">—</div>
+  <span class="wn-badge sem" id="semBadge">Semester —</span>
+  <span class="wn-badge stage" id="stageBadge">Stage 1</span>
+  <div class="wn-conflict-flag" id="conflictFlag" hidden></div>
+</div>
+
 <main class="body">
-  <section class="timeline" id="timeline"></section>
+  <section class="calendar" id="calendarWrap">
+    <div class="cal-hours" id="calHours"></div>
+    <div class="cal-days" id="calDays"></div>
+  </section>
 
   <aside class="side">
-    <div class="req-panel" id="reqPanel"></div>
-    <div class="catalog">
-      <div class="catalog-head">Add to sheet</div>
+    <div class="side-tabs">
+      <button class="side-tab active" data-tab="catalog">Catalog</button>
+      <button class="side-tab" data-tab="requirements">Requirements</button>
+      <button class="side-tab" data-tab="conflicts">Conflicts <span id="conflictCount"></span></button>
+      <button class="side-tab" data-tab="stage2">Stage 2</button>
+    </div>
+
+    <div class="side-panel" id="panelCatalog">
       <div class="catalog-controls">
         <input id="searchBox" type="search" placeholder="Search courses…" autocomplete="off">
         <select id="filterSelect"><option value="">All categories &amp; modules</option></select>
       </div>
       <div class="cat-list" id="catList"></div>
+    </div>
+
+    <div class="side-panel" id="panelRequirements" hidden>
+      <div class="req-panel" id="reqPanel"></div>
+    </div>
+
+    <div class="side-panel" id="panelConflicts" hidden>
+      <div class="conflict-list" id="conflictList"></div>
+    </div>
+
+    <div class="side-panel" id="panelStage2" hidden>
+      <div class="stage2-list" id="stage2List"></div>
     </div>
   </aside>
 </main>

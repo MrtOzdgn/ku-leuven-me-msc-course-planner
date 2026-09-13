@@ -16,7 +16,8 @@
           "code": "H03Y1A",
           "ects": 6,
           "semester": 1,
-          "compulsory": true
+          "compulsory": true,
+          "stage": 1
         },
         {
           "id": "mechanical-drive-systems",
@@ -24,7 +25,8 @@
           "code": "H04S6A",
           "ects": 6,
           "semester": 1,
-          "compulsory": true
+          "compulsory": true,
+          "stage": 1
         },
         {
           "id": "numerical-modelling-in-mechanical-engineering",
@@ -32,7 +34,8 @@
           "code": "H04U3A",
           "ects": 5,
           "semester": 1,
-          "compulsory": true
+          "compulsory": true,
+          "stage": 1
         },
         {
           "id": "integrated-project",
@@ -40,7 +43,8 @@
           "code": "H04P9A",
           "ects": 6,
           "semester": 2,
-          "compulsory": true
+          "compulsory": true,
+          "stage": 1
         },
         {
           "id": "sensors-and-measurements-systems",
@@ -48,7 +52,8 @@
           "code": "H04X7A",
           "ects": 5,
           "semester": 2,
-          "compulsory": true
+          "compulsory": true,
+          "stage": 1
         }
       ]
     },
@@ -63,7 +68,8 @@
           "code": "H04X3A",
           "ects": 5,
           "semester": 1,
-          "compulsory": false
+          "compulsory": false,
+          "stage": 1
         },
         {
           "id": "systems-and-control-theory",
@@ -71,7 +77,8 @@
           "code": "H04X3B",
           "ects": 7,
           "semester": 1,
-          "compulsory": false
+          "compulsory": false,
+          "stage": 1
         }
       ]
     },
@@ -89,7 +96,8 @@
           "semester": 1,
           "compulsory": false,
           "part": "Part A",
-          "notes": "One of the three courses 'Religions' H0N82A or 'Religie, zingeving en levensbeschouwing' A04D5A / A08C4A is compulsory. Students who already successfully completed a course with the same content before starting this programme, have to take another 3 ECTS from part C of the general interest courses instead. Students are encouraged to take the courses of the 2nd semester (A08C4A or H0N82A), this way they avoid overlap with core courses."
+          "notes": "One of the three courses 'Religions' H0N82A or 'Religie, zingeving en levensbeschouwing' A04D5A / A08C4A is compulsory. Students who already successfully completed a course with the same content before starting this programme, have to take another 3 ECTS from part C of the general interest courses instead. Students are encouraged to take the courses of the 2nd semester (A08C4A or H0N82A), this way they avoid overlap with core courses.",
+          "stage": "flexible"
         },
         {
           "id": "religions-a04d5a",
@@ -99,7 +107,8 @@
           "semester": 2,
           "compulsory": false,
           "part": "Part A",
-          "notes": "One of the three courses 'Religions' H0N82A or 'Religie, zingeving en levensbeschouwing' A04D5A / A08C4A is compulsory. Students who already successfully completed a course with the same content before starting this programme, have to take another 3 ECTS from part C of the general interest courses instead. Students are encouraged to take the courses of the 2nd semester (A08C4A or H0N82A), this way they avoid overlap with core courses."
+          "notes": "One of the three courses 'Religions' H0N82A or 'Religie, zingeving en levensbeschouwing' A04D5A / A08C4A is compulsory. Students who already successfully completed a course with the same content before starting this programme, have to take another 3 ECTS from part C of the general interest courses instead. Students are encouraged to take the courses of the 2nd semester (A08C4A or H0N82A), this way they avoid overlap with core courses.",
+          "stage": "flexible"
         },
         {
           "id": "religions-h0n82a",
@@ -109,7 +118,8 @@
           "semester": 2,
           "compulsory": false,
           "part": "Part A",
-          "notes": "One of the three courses 'Religions' H0N82A or 'Religie, zingeving en levensbeschouwing' A04D5A / A08C4A is compulsory. Students who already successfully completed a course with the same content before starting this programme, have to take another 3 ECTS from part C of the general interest courses instead. Students are encouraged to take the courses of the 2nd semester (A08C4A or H0N82A), this way they avoid overlap with core courses."
+          "notes": "One of the three courses 'Religions' H0N82A or 'Religie, zingeving en levensbeschouwing' A04D5A / A08C4A is compulsory. Students who already successfully completed a course with the same content before starting this programme, have to take another 3 ECTS from part C of the general interest courses instead. Students are encouraged to take the courses of the 2nd semester (A08C4A or H0N82A), this way they avoid overlap with core courses.",
+          "stage": "flexible"
         },
         {
           "id": "introduction-to-safety-engineering",
@@ -119,7 +129,8 @@
           "semester": 1,
           "compulsory": false,
           "part": "Part B",
-          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A."
+          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A.",
+          "stage": "flexible"
         },
         {
           "id": "intellectual-property-management",
@@ -129,7 +140,8 @@
           "semester": 2,
           "compulsory": false,
           "part": "Part B",
-          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A."
+          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A.",
+          "stage": "flexible"
         },
         {
           "id": "ecodesign-and-life-cycle-engineering",
@@ -139,7 +151,8 @@
           "semester": 2,
           "compulsory": false,
           "part": "Part B",
-          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A."
+          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A.",
+          "stage": "flexible"
         },
         {
           "id": "technology-entrepreneurship-and-new-business-development",
@@ -149,7 +162,8 @@
           "semester": "either",
           "compulsory": false,
           "part": "Part B",
-          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A."
+          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A.",
+          "stage": "flexible"
         },
         {
           "id": "project-management",
@@ -159,7 +173,8 @@
           "semester": 2,
           "compulsory": false,
           "part": "Part B",
-          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A."
+          "notes": "H04X2A 'Project Management' can only be taken up in conjunction with the 'Master's Thesis' H09Z9A.",
+          "stage": "flexible"
         },
         {
           "id": "maintenance-management",
@@ -169,7 +184,8 @@
           "semester": null,
           "compulsory": false,
           "part": "Part C",
-          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+          "stage": "flexible"
         },
         {
           "id": "bedrijfsstage-werktuigkunde-industrial-internship-mechanical-engineering",
@@ -179,7 +195,8 @@
           "semester": 1,
           "compulsory": false,
           "part": "Part C",
-          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+          "stage": "flexible"
         },
         {
           "id": "energy-economics",
@@ -189,7 +206,8 @@
           "semester": 2,
           "compulsory": false,
           "part": "Part C",
-          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+          "stage": "flexible"
         },
         {
           "id": "dutch-language-and-cultures",
@@ -199,7 +217,8 @@
           "semester": 2,
           "compulsory": false,
           "part": "Part C",
-          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+          "stage": "flexible"
         },
         {
           "id": "engineering-and-entrepreneurship",
@@ -209,7 +228,8 @@
           "semester": 2,
           "compulsory": false,
           "part": "Part C",
-          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+          "stage": "flexible"
         },
         {
           "id": "entrepreneurship-in-practice-service-learning",
@@ -219,7 +239,8 @@
           "semester": "either",
           "compulsory": false,
           "part": "Part C",
-          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+          "stage": "flexible"
         },
         {
           "id": "ai-for-engineering-science",
@@ -229,7 +250,8 @@
           "semester": "either",
           "compulsory": false,
           "part": "Part C",
-          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+          "stage": "flexible"
         },
         {
           "id": "studium-generale-lectures-for-the-21st-century",
@@ -239,7 +261,8 @@
           "semester": "either",
           "compulsory": false,
           "part": "Part C",
-          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+          "stage": "flexible"
         },
         {
           "id": "organizational-psychology-part-2-leadership",
@@ -249,7 +272,8 @@
           "semester": 1,
           "compulsory": false,
           "part": "Part C",
-          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+          "stage": "flexible"
         },
         {
           "id": "leadership-and-strategic-management",
@@ -259,7 +283,8 @@
           "semester": 2,
           "compulsory": false,
           "part": "Part C",
-          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+          "stage": "flexible"
         },
         {
           "id": "tutoring-mechanical-engineering",
@@ -269,7 +294,8 @@
           "semester": "either",
           "compulsory": false,
           "part": "Part C",
-          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'."
+          "notes": "The student chooses either H09Q1A 'Leadership and Strategic Management' or H09P4A 'Engineering and Entrepreneurship'. Students may take maximum 9 credit points of the courses Industrial Experience, Industrial Internship, H0T39A 'Entrepreneurship in de praktijk/in practice' and H0T91A 'Entrepreneurship in practice/service- learning'. Students select, with approval, at most one of the following two courses: H0T39A 'Entrepreneurship in practice' and H0T91A 'Entrepreneurship in practice/service-learning'.",
+          "stage": "flexible"
         }
       ]
     },
@@ -284,7 +310,8 @@
           "code": "H0V01A",
           "ects": 3,
           "semester": 1,
-          "compulsory": false
+          "compulsory": false,
+          "stage": "flexible"
         },
         {
           "id": "selected-topics-in-engineering-summer-course-i",
@@ -292,7 +319,8 @@
           "code": "H0V03A",
           "ects": 3,
           "semester": 1,
-          "compulsory": false
+          "compulsory": false,
+          "stage": "flexible"
         },
         {
           "id": "selected-topics-in-engineering-athens-ii",
@@ -300,7 +328,8 @@
           "code": "H0V02A",
           "ects": 3,
           "semester": 2,
-          "compulsory": false
+          "compulsory": false,
+          "stage": "flexible"
         },
         {
           "id": "selected-topics-in-engineering-summer-course-ii",
@@ -308,7 +337,8 @@
           "code": "H0V04A",
           "ects": 3,
           "semester": 2,
-          "compulsory": false
+          "compulsory": false,
+          "stage": "flexible"
         }
       ]
     },
@@ -323,7 +353,8 @@
           "code": "H09Z9A",
           "ects": 24,
           "semester": "either",
-          "compulsory": true
+          "compulsory": true,
+          "stage": 2
         }
       ]
     },
@@ -339,7 +370,8 @@
           "ects": 6,
           "semester": 1,
           "compulsory": false,
-          "pool": "Industrial Experience"
+          "pool": "Industrial Experience",
+          "stage": "flexible"
         },
         {
           "id": "environmental-economics",
@@ -348,7 +380,8 @@
           "ects": 3,
           "semester": 1,
           "compulsory": false,
-          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)",
+          "stage": "flexible"
         },
         {
           "id": "materials-selection",
@@ -357,7 +390,8 @@
           "ects": 3,
           "semester": 1,
           "compulsory": false,
-          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)",
+          "stage": "flexible"
         },
         {
           "id": "biomaterials",
@@ -366,7 +400,8 @@
           "ects": 3,
           "semester": 1,
           "compulsory": false,
-          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)",
+          "stage": "flexible"
         },
         {
           "id": "dredging-technology-for-mechanical-engineers",
@@ -375,7 +410,8 @@
           "ects": 4,
           "semester": 1,
           "compulsory": false,
-          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)",
+          "stage": "flexible"
         },
         {
           "id": "safety-of-chemical-and-biological-products-and-of-chemical-processes",
@@ -384,7 +420,8 @@
           "ects": 4,
           "semester": 2,
           "compulsory": false,
-          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)",
+          "stage": "flexible"
         },
         {
           "id": "safety-aspects-of-industrial-installations",
@@ -393,7 +430,8 @@
           "ects": 4,
           "semester": 2,
           "compulsory": false,
-          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)",
+          "stage": "flexible"
         },
         {
           "id": "data-mining-and-neural-networks",
@@ -402,7 +440,8 @@
           "ects": 4,
           "semester": 1,
           "compulsory": false,
-          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)"
+          "pool": "Other Electives (Materials, Safety/Security & Environment, Biomechanics, Data Science)",
+          "stage": "flexible"
         }
       ]
     }
@@ -420,7 +459,8 @@
           "ects": 3,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "design-methodologies",
@@ -429,7 +469,8 @@
           "ects": 6,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "production-systems-machine-tools-flexible-computer-integrated-production",
@@ -438,7 +479,8 @@
           "ects": 6,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "introduction-to-operational-management-and-logistics",
@@ -447,7 +489,8 @@
           "ects": 3,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "dimensional-metrology",
@@ -456,7 +499,8 @@
           "ects": 6,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "engineering-economy",
@@ -466,7 +510,8 @@
           "semester": null,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "design-and-analysis-of-experimentation",
@@ -476,7 +521,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "deterministic-decision-models",
@@ -486,7 +532,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "advanced-subtractive-manufacturing",
@@ -496,7 +543,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "total-quality-management",
@@ -506,7 +554,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "additive-manufacturing-processes-3d-printing",
@@ -516,7 +565,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "forming-technology",
@@ -526,7 +576,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "simulation-theory-and-applications",
@@ -536,7 +587,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "optimization-special-topics",
@@ -546,7 +598,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "polymer-processing",
@@ -556,7 +609,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "organizational-psychology-part-2-leadership--manufacturing-management",
@@ -567,7 +621,8 @@
           "compulsory": false,
           "electivePart": "Optional Part",
           "notes": "Also available as a General Interest / Broadening elective (same course, same code) \u2014 don't count it twice if picking from both pools.",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "introduction-to-operational-management-and-logistics--optional",
@@ -578,7 +633,8 @@
           "compulsory": false,
           "electivePart": "Optional Part",
           "notes": "This course is already compulsory for Manufacturing & Management (see the compulsory entry above) \u2014 KU Leuven's own course catalogue also lists it a second time in the elective/optional-part table, possibly for substitution/retake bookkeeping. Don't double-count its ECTS if it's already satisfying your compulsory requirement.",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         }
       ]
     },
@@ -594,7 +650,8 @@
           "ects": 3,
           "semester": null,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "embedded-control-systems--mechatronics-robotics",
@@ -603,7 +660,8 @@
           "ects": 3,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "precision-engineering",
@@ -612,7 +670,8 @@
           "ects": 3,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "drive-systems",
@@ -621,7 +680,8 @@
           "ects": 6,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "optimization-of-mechatronic-systems",
@@ -630,7 +690,8 @@
           "ects": 6,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "advanced-robot-control-systems",
@@ -639,7 +700,8 @@
           "ects": 6,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "advanced-model-based-control",
@@ -649,7 +711,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "production-machines-and-systems",
@@ -659,7 +722,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "robotics",
@@ -669,7 +733,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "image-analysis-and-understanding",
@@ -679,7 +744,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "tribology",
@@ -689,7 +755,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "micro-electromechanical-systems",
@@ -699,7 +766,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "uncertainty-in-artificial-intelligence",
@@ -709,7 +777,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         }
       ]
     },
@@ -725,7 +794,8 @@
           "ects": 6,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "thermal-systems",
@@ -734,7 +804,8 @@
           "ects": 5,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "new-energy-technologies-seminars",
@@ -743,7 +814,8 @@
           "ects": 3,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "energy-challenges",
@@ -752,7 +824,8 @@
           "ects": 3,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "nuclear-energy-basic-aspects",
@@ -762,7 +835,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "nuclear-energy-deepening-insights",
@@ -772,7 +846,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "numerical-techniques-in-fluid-dynamics",
@@ -782,7 +857,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "turbulence",
@@ -792,7 +868,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "two-phase-flow-theory-and-applications",
@@ -802,7 +879,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "advanced-measurement-techniques-in-fluid-mechanics",
@@ -812,7 +890,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "advanced-thermodynamics-and-plasma-physics",
@@ -822,7 +901,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "turbomachinery-part-2",
@@ -832,7 +912,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "combustion",
@@ -842,7 +923,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "vehicle-propulsion--thermotechnical-sciences",
@@ -852,7 +934,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         }
       ]
     },
@@ -868,7 +951,8 @@
           "ects": 5,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "aircraft-performance-and-stability",
@@ -877,7 +961,8 @@
           "ects": 5,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "spacecraft-technology-and-space-environment",
@@ -886,7 +971,8 @@
           "ects": 5,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "aircraft-engines",
@@ -895,7 +981,8 @@
           "ects": 5,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "production-and-quality-assurance-processes-in-the-aerospace-industry",
@@ -904,7 +991,8 @@
           "ects": 5,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "aircraft-materials",
@@ -915,7 +1003,8 @@
           "compulsory": false,
           "choiceGroup": "Compulsory Courses Aero & Space Engineering: Part II",
           "notes": "Students choose one of both courses. Students who have already taken H02U6A 'Polymeercomposieten', take H0R77A 'Aircraft Materials and Processing Technology for Composites', other students take H0R74A 'Aircraft Materials'.",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "aircraft-materials-and-processing-technology-for-composites",
@@ -926,7 +1015,8 @@
           "compulsory": false,
           "choiceGroup": "Compulsory Courses Aero & Space Engineering: Part II",
           "notes": "Students choose one of both courses. Students who have already taken H02U6A 'Polymeercomposieten', take H0R77A 'Aircraft Materials and Processing Technology for Composites', other students take H0R74A 'Aircraft Materials'.",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "reliability-of-mechanical-systems--aero-space-engineering",
@@ -936,7 +1026,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "satellite-navigation-and-communications",
@@ -946,7 +1037,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "aircraft-structures",
@@ -956,7 +1048,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "helicopters",
@@ -966,7 +1059,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "noise-abatement-in-machines-vehicles-and-aircraft--aero-space-engineering",
@@ -976,7 +1070,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "structural-optimization--aero-space-engineering",
@@ -986,7 +1081,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "aircraft-mro-maintenance-repair-overhaul",
@@ -997,7 +1093,8 @@
           "compulsory": false,
           "electivePart": "Optional Part",
           "notes": "Not organised in the current academic year according to KU Leuven's catalogue, but still listed in the Aero & Space Engineering elective table.",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         }
       ]
     },
@@ -1013,7 +1110,8 @@
           "ects": 6,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "embedded-control-systems--automotive-engineering",
@@ -1022,7 +1120,8 @@
           "ects": 3,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "vehicle-propulsion--automotive-engineering",
@@ -1031,7 +1130,8 @@
           "ects": 3,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "noise-abatement-in-machines-vehicles-and-aircraft--automotive-engineering",
@@ -1040,7 +1140,8 @@
           "ects": 6,
           "semester": 2,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "vehicle-systems",
@@ -1049,7 +1150,8 @@
           "ects": 3,
           "semester": 1,
           "compulsory": true,
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "aerodynamics-h04o1a--automotive-engineering",
@@ -1059,7 +1161,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "advanced-techniques-for-vibro-acoustic-measurement-and-analysis",
@@ -1069,7 +1172,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "structural-dynamics-analysis-and-numerical-modelling",
@@ -1079,7 +1183,8 @@
           "semester": 1,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "reliability-of-mechanical-systems--automotive-engineering",
@@ -1089,7 +1194,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "mechatronic-drive-systems",
@@ -1099,7 +1205,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "structural-optimization--automotive-engineering",
@@ -1109,7 +1216,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         },
         {
           "id": "electrical-drives",
@@ -1119,7 +1227,8 @@
           "semester": 2,
           "compulsory": false,
           "electivePart": "Optional Part",
-          "prerequisites": []
+          "prerequisites": [],
+          "stage": "flexible"
         }
       ]
     }

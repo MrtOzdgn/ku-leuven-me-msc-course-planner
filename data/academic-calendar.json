@@ -1,0 +1,116 @@
+{
+  "weeks": [
+    {
+      "monday": "2026-09-21",
+      "semester": 1
+    },
+    {
+      "monday": "2026-09-28",
+      "semester": 1
+    },
+    {
+      "monday": "2026-10-05",
+      "semester": 1
+    },
+    {
+      "monday": "2026-10-12",
+      "semester": 1
+    },
+    {
+      "monday": "2026-10-19",
+      "semester": 1
+    },
+    {
+      "monday": "2026-10-26",
+      "semester": 1
+    },
+    {
+      "monday": "2026-11-02",
+      "semester": 1
+    },
+    {
+      "monday": "2026-11-09",
+      "semester": 1
+    },
+    {
+      "monday": "2026-11-16",
+      "semester": 1
+    },
+    {
+      "monday": "2026-11-23",
+      "semester": 1
+    },
+    {
+      "monday": "2026-11-30",
+      "semester": 1
+    },
+    {
+      "monday": "2026-12-07",
+      "semester": 1
+    },
+    {
+      "monday": "2026-12-14",
+      "semester": 1
+    },
+    {
+      "monday": "2027-02-08",
+      "semester": 2
+    },
+    {
+      "monday": "2027-02-15",
+      "semester": 2
+    },
+    {
+      "monday": "2027-02-22",
+      "semester": 2
+    },
+    {
+      "monday": "2027-03-01",
+      "semester": 2
+    },
+    {
+      "monday": "2027-03-08",
+      "semester": 2
+    },
+    {
+      "monday": "2027-03-15",
+      "semester": 2
+    },
+    {
+      "monday": "2027-03-22",
+      "semester": 2
+    },
+    {
+      "monday": "2027-04-05",
+      "semester": 2
+    },
+    {
+      "monday": "2027-04-12",
+      "semester": 2
+    },
+    {
+      "monday": "2027-04-19",
+      "semester": 2
+    },
+    {
+      "monday": "2027-04-26",
+      "semester": 2
+    },
+    {
+      "monday": "2027-05-03",
+      "semester": 2
+    },
+    {
+      "monday": "2027-05-10",
+      "semester": 2
+    },
+    {
+      "monday": "2027-05-17",
+      "semester": 2
+    },
+    {
+      "monday": "2027-06-21",
+      "semester": 2
+    }
+  ]
+}
